@@ -93,7 +93,7 @@ $query = mysqli_query($mysqli,"SELECT * FROM film WHERE id_film='$id_film'");
 				<tr>
 				 <td><?= $result['id_film']?></td>
                  <td><img src="image_film.php?IdFilm=<?php echo $result['id_film']; ?>" width="100"/></td>
-				 <td><?= $result['judul']?></td>
+                 <td><?= $result['judul']?></td>
 				 <td><?= $result['genre']?></td>
 				 <td><?= $result['durasi']?></td>
                  <td><?= $result['sinopsis']?></td>

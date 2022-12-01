@@ -1,3 +1,10 @@
+<?php
+require "konek.php";
+require_once("auth.php");
+$find= mysqli_select_db($mysqli, $database);
+$id_user = $_SESSION["user"]['id_user'];
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -14,7 +21,7 @@
         </button>
         <div class="navbar-nav">
           <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#">User</a>
+            <a class="nav-link px-3" href="#"><?php echo $_SESSION["user"]["nama_lengkap"] ?></a>
           </div>
         </div>
       </header>
