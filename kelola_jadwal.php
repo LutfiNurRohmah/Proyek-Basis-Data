@@ -64,7 +64,7 @@ $execute2= mysqli_query($mysqli, $query2);
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="index.html">
+                  <a class="nav-link" href="index.php">
                     <span data-feather="layers" class="align-text-bottom"></span>
                     Logout
                   </a>

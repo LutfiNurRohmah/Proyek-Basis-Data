@@ -64,7 +64,7 @@ $execute2 = mysqli_query($mysqli, $query2);
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="index.html">
+                  <a class="nav-link" href="index.php">
                     <span data-feather="layers" class="align-text-bottom"></span>
                     Logout
                   </a>
@@ -99,7 +99,7 @@ $execute2 = mysqli_query($mysqli, $query2);
 				 <td><?= $result['saldo']?></td>
          <td align=center>
             <a href="detail_user.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
-            <a href="deleteUser.php?IdFilm=<?= $result['id_user']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
+            <a href="deleteUser.php?IdUser=<?= $result['id_user']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
 				 </td>
 				</tr>
 				<?php }?>
