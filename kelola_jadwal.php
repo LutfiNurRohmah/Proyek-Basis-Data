@@ -123,8 +123,8 @@ $execute = mysqli_query($mysqli, $query);
       <h6 class="h6" style="margin-top:15px;">List Jadwal Tayang</h6>
       </div>
       
-      <table border=1 style="margin-bottom:40px;">
-        <thead>
+      <table class="table table-bordered" style="margin-bottom:40px;">
+				<thead class="table-primary">
 				 <td align=center>Id Jadwal</td>
 				 <td align=center>Id Film</td>
 				 <td align=center>Tanggal Tayang</td>
@@ -143,10 +143,10 @@ $execute = mysqli_query($mysqli, $query);
 				 <td><?= $result['studio']?></td>
 				 <td><?= $result['total_kursi']?></td>
          <td><?= $result['harga']?></td>
-         <td>
-                    <a href="update.php?Nama=<?= $result[0]?>">Edit</a>
-                    |
-					<a href="deleteJadwal.php?IdJadwal=<?= $result['id_jadwal']?>">Hapus</a>
+         <td align=center>
+            <a href="detail_jadwal.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
+            <a href="update.php?Nama=<?= $result[0]?>"><button type="button" class="btn btn-primary">Edit</button></a>
+            <a href="deleteJadwal.php?IdJadwal=<?= $result['id_jadwal']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
 				 </td>
 				</tr>
 				<?php }?>

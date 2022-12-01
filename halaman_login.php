@@ -10,7 +10,6 @@
     
     <main class="form-signin w-100 m-auto">
         <form style="margin-top: 100px;" method="post" action="login.php">
-          <!--<img class="mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">-->
           <h1 class="h3 mb-3 fw-normal">Login</h1>
           <div style="margin-top: 30px; margin-left: 450px; margin-right: 450px;">
           <div class="form-floating">

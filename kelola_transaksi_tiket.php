@@ -77,8 +77,8 @@ $execute = mysqli_query($mysqli, $query);
 
             <h6 class="h6">List Transaksi Tiket</h6>
 
-      <table border=1>
-				<thead>
+      <table class="table table-bordered">
+				<thead class="table-primary">
 				 <td align=center>Kode Tiket</td>
 				 <td align=center>Id User</td>
 				 <td align=center>Id Jadwal</td>
@@ -93,10 +93,9 @@ $execute = mysqli_query($mysqli, $query);
 				 <td><?= $result['id_jadwal']?></td>
 				 <td><?= $result['nomor_kursi']?></td>
 				 <td><?= $result['waktu_transaksi']?></td>
-         <td>
-          <a href="detail_tiket.php?id_user=<?= $result[0]?>">Lihat Detail</a>
-          |
-					<a href="deleteTransaksi.php?KodeTiket=<?= $result['kode_tiket']?>">Hapus</a>
+         <td align=center>
+            <a href="detail_user.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
+            <a href="deleteTransaksi.php?KodeTiket=<?= $result['kode_tiket']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
 				 </td>
 				</tr>
 				<?php }?>

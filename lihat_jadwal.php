@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard User</title>
+    <title>Lihat Jadwal Tayang</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
   <body>
@@ -25,13 +25,13 @@
             <div class="position-sticky pt-3 sidebar-sticky">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a class="nav-link active bg-primary text-light" aria-current="page" href="home_user.php">
+                  <a class="nav-link active" aria-current="page" href="home_user.php">
                     <span data-feather="home" class="align-text-bottom"></span>
                     Dashboard
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="lihat_jadwal.php">
+                  <a class="nav-link bg-primary text-light" href="lihat_jadwal.php">
                     <span data-feather="file" class="align-text-bottom"></span>
                     Lihat Jadwal
                   </a>
@@ -66,7 +66,7 @@
           </nav>
           <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-              <h3 class="h5">Dashboard - User</h3>
+              <h3 class="h5">Lihat Jadwal</h3>
             </div>
           </main>
         </div>

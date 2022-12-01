@@ -81,8 +81,8 @@ $execute2 = mysqli_query($mysqli, $query2);
             
               <h6 class="h6">List User</h6>
 
-      <table border=1>
-				<thead>
+      <table class="table table-bordered">
+				<thead class="table-primary">
 				 <td align=center>Id User</td>
 				 <td align=center>Nama Lengkap</td>
 				 <td align=center>Email</td>
@@ -97,12 +97,9 @@ $execute2 = mysqli_query($mysqli, $query2);
 				 <td><?= $result['email']?></td>
 				 <td><?= $result['nomor_hp']?></td>
 				 <td><?= $result['saldo']?></td>
-         <td>
-          <a href="detail_user.php?id_user=<?= $result[0]?>">Lihat Detail</a>
-          |
-					<a href="update.php?Nama=<?= $result[0]?>">Edit</a>
-					| 
-					<a href="deleteUser.php?IdUser=<?= $result['id_user']?>">Hapus</a>
+         <td align=center>
+            <a href="detail_user.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
+            <a href="deleteUser.php?IdFilm=<?= $result['id_user']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
 				 </td>
 				</tr>
 				<?php }?>
@@ -112,8 +109,8 @@ $execute2 = mysqli_query($mysqli, $query2);
       <h6 class="h6" style="margin-top:15px;">List Pengisian Saldo</h6>
       </div>
       
-      <table border=1>
-        <thead>
+      <table class="table table-bordered">
+        <thead class="table-primary">
 				 <td align=center>Id Isi Saldo</td>
 				 <td align=center>Id User</td>
 				 <td align=center>Jumlah Isi</td>
@@ -122,16 +119,15 @@ $execute2 = mysqli_query($mysqli, $query2);
          <td align=center>Pilihan Menu</td>
 				</thead>
 				<?php while($result = mysqli_fetch_assoc($execute2)){ ?>
-				<tr>
+				<tr border=1>
 				 <td><?= $result['id_isisaldo']?></td>
 				 <td><?= $result['id_user']?></td>
 				 <td><?= $result['jumlah_isi']?></td>
 				 <td><?= $result['waktu_transaksi']?></td>
 				 <td><?= $result['status']?></td>
-         <td>
-          <a href="konfirm_saldo.php?Nama=<?= $result[0]?>">Cek</a>
-					| 
-					<a href="deleteIsiSaldo.php?IdIsiSaldo=<?= $result['id_isisaldo']?>">Hapus</a>
+         <td  align=center>
+          <a href="konfim_saldo.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Konfirmasi</button></a>
+          <a href="deleteIsiSaldo.php?IdIsiSaldo=<?= $result['id_isisaldo']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
 				 </td>
 				</tr>
 				<?php }?>

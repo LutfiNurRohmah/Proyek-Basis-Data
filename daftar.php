@@ -19,13 +19,13 @@
         <div class="row mb-3">
             <label for="inputAddress" class="col-sm-2 col-form-label">Alamat</label>
             <div class="col-sm-10">
-              <input type="text" name="alamat" class="form-control" id="inputAddress" placeholder="Contoh: Jl. Pemuda No. 25, Depok, Sleman, DIY">
+              <input type="text" name="alamat" class="form-control" id="inputAddress" placeholder="">
             </div>
         </div>
         <div class="row mb-3">
             <label for="inputNumber" class="col-sm-2 col-form-label">Nomor HP</label>
             <div class="col-sm-10">
-              <input type="text" name="nomor" class="form-control" id="inputNumber" placeholder="Contoh: 08xxxxxxxx">
+              <input type="text" name="nomor" class="form-control" id="inputNumber" placeholder="">
             </div>
         </div>
         <div class="row mb-3">

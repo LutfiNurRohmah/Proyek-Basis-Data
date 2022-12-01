@@ -147,8 +147,8 @@ $execute = mysqli_query($mysqli, $query);
       <h6 class="h6" style="margin-top:15px;">List Film</h6>
       </div>
       
-      <table border=1 style="margin-bottom:40px;">
-        <thead>
+      <table class="table table-bordered" style="margin-bottom:40px;">
+				<thead class="table-primary">
 				 <td align=center>Id Film</td>
 				 <td align=center>Judul</td>
 				 <td align=center>Genre</td>
@@ -163,12 +163,10 @@ $execute = mysqli_query($mysqli, $query);
 				 <td><?= $result['genre']?></td>
 				 <td><?= $result['durasi']?></td>
 				 <td><?= $result['tanggal_rilis']?></td>
-         <td>
-                    <a href="detail_film.php?Nama=<?= $result[0]?>">Lihat Detail</a>
-					|
-                    <a href="update.php?Nama=<?= $result[0]?>">Edit</a>
-                    |
-					<a href="deleteFilm.php?IdFilm=<?= $result['id_film']?>">Hapus</a>
+         <td align=center>
+            <a href="detail_film.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
+            <a href="update.php?Nama=<?= $result[0]?>"><button type="button" class="btn btn-primary">Edit</button></a>
+            <a href="deleteFilm.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
 				 </td>
 				</tr>
 				<?php }?>

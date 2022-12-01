@@ -13,11 +13,12 @@ $password=md5($ubah);
 $query="INSERT INTO user (nama_lengkap, alamat, email, nomor_hp, password) VALUES('$nama','$alamat','$email','$nomorhp','$password')";
 $simpan= mysqli_query($mysqli, $query);
 if($simpan){
-    echo "Data tersimpan:<br>";
-    echo "Nama                : ".$nama."<br>";
-    echo "Alamat              : ".$alamat."<br>";
-    echo "Email       		  : ".$email."<br>";
-    echo "Nomor HP            : ".$nomorhp."<br>"; 
+    header("Location: halaman_login.php");
+    // echo "Data tersimpan:<br>";
+    // echo "Nama                : ".$nama."<br>";
+    // echo "Alamat              : ".$alamat."<br>";
+    // echo "Email       		  : ".$email."<br>";
+    // echo "Nomor HP            : ".$nomorhp."<br>"; 
     //echo "Password            : ".$password."<br>";
 }else{
     echo "Data gagal disimpan";}
