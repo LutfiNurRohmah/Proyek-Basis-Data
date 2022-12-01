@@ -1,3 +1,12 @@
+<?php
+require "konek.php";
+require_once("auth.php");
+$find= mysqli_select_db($mysqli, $database);
+$id_user = $_SESSION["user"]['id_user'];
+$query="SELECT * FROM transaksi_tiket WHERE id_user=$id_user";
+$execute = mysqli_query($mysqli, $query);
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -14,7 +23,7 @@
         </button>
         <div class="navbar-nav">
           <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#">User</a>
+            <a class="nav-link px-3" href="#"><?php echo  $_SESSION["user"]["nama_lengkap"] ?></a>
           </div>
         </div>
       </header>
@@ -55,7 +64,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="index.html">
+                  <a class="nav-link" href="logout.php">
                     <span data-feather="layers" class="align-text-bottom"></span>
                     Logout
                   </a>
@@ -68,6 +77,30 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
               <h3 class="h5">Riwayat Transaksi</h3>
             </div>
+
+            <h6 class="h6">List Transaksi Tiket</h6>
+
+      <table class="table table-bordered">
+				<thead class="table-primary">
+				 <td align=center>Kode Tiket</td>
+				 <td align=center>Id Jadwal</td>
+				 <td align=center>Nomor Kursi</td>
+         <td align=center>Waktu Transaksi</td>
+         <td align=center>Pilihan Menu</td>
+				</thead>
+				<?php while($result = mysqli_fetch_assoc($execute)){ ?>
+				<tr>
+				 <td><?= $result['kode_tiket']?></td>
+				 <td><?= $result['id_jadwal']?></td>
+				 <td><?= $result['nomor_kursi']?></td>
+				 <td><?= $result['waktu_transaksi']?></td>
+         <td align=center>
+            <a href="detail_user.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
+            <a href="deleteTransaksi.php?KodeTiket=<?= $result['kode_tiket']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
+				 </td>
+				</tr>
+				<?php }?>
+			</table>
           </main>
         </div>
     </div>

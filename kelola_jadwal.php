@@ -3,6 +3,8 @@ require "konek.php";
 $find= mysqli_select_db($mysqli, $database);
 $query="SELECT * FROM jadwal";
 $execute = mysqli_query($mysqli, $query);
+$query2="SELECT id_film, judul FROM film";
+$execute2= mysqli_query($mysqli, $query2);
 ?>
 
 <!doctype html>
@@ -78,12 +80,17 @@ $execute = mysqli_query($mysqli, $query);
 
             <!-- input film -->
     <form method=post action=simpanJadwal.php>
-        <h6 class="h6">Tambah Jadwal</h6>
-            <div class="row mb-3">
-            <label for="inputIDFilm" class="col-sm-2 col-form-label">Id Film</label>
-            <div class="col-sm-10">
-              <input type="text" name="id_film" class="form-control" id="inputIDJadwal" placeholder="">
-            </div>
+      <h6 class="h6">Tambah Jadwal</h6>
+        <div class="row mb-3">
+          <label for="inputIDFilm" class="col-sm-2 col-form-label">Film</label>
+          <div class="col-sm-10">
+            <select type="text" name="id_film" class="form-select form-control" aria-label="Default select example">
+              <option selected>Pilih Film</option>
+              <?php while($pilihID = mysqli_fetch_assoc($execute2)){ ?>
+                <option value="<?= $pilihID['id_film']?>"><?= $pilihID['id_film']?>-<?= $pilihID['judul']?></option>
+              <?php }?>
+            </select>
+          </div>
         </div>
         <div class="row mb-3">
             <label for="inputTGLTY" class="col-sm-2 col-form-label">Tanggal Tayang</label>

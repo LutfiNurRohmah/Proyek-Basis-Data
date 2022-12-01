@@ -1,3 +1,11 @@
+<?php
+require_once("auth.php");
+require "konek.php";
+$find= mysqli_select_db($mysqli, $database);
+$query="SELECT * FROM jadwal";
+$execute = mysqli_query($mysqli, $query);
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -14,7 +22,7 @@
         </button>
         <div class="navbar-nav">
           <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#">User</a>
+            <a class="nav-link px-3" href="#"><?php echo  $_SESSION["user"]["nama_lengkap"] ?></a>
           </div>
         </div>
       </header>
@@ -55,7 +63,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="index.html">
+                  <a class="nav-link" href="logout.php">
                     <span data-feather="layers" class="align-text-bottom"></span>
                     Logout
                   </a>
@@ -68,6 +76,38 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
               <h3 class="h5">Lihat Jadwal</h3>
             </div>
+
+            <div>
+              <h6 class="h6" style="margin-top:15px;">List Jadwal Tayang</h6>
+            </div>
+      
+      <table class="table table-bordered" style="margin-bottom:40px;">
+				<thead class="table-primary">
+				 <td align=center>Id Jadwal</td>
+				 <td align=center>Id Film</td>
+				 <td align=center>Tanggal Tayang</td>
+				 <td align=center>Jam Tayang</td>
+         <td align=center>Studio</td>
+         <td align=center>Jumlah Kursi</td>
+         <td align=center>Harga</td>
+         <td align=center>Pilihan Menu</td>
+				</thead>
+				<?php while($result = mysqli_fetch_assoc($execute)){ ?>
+				<tr>
+				 <td><?= $result['id_jadwal']?></td>
+         <td><?= $result['id_film']?></td>
+				 <td><?= $result['tanggal_tayang']?></td>
+				 <td><?= $result['jam_tayang']?></td>
+				 <td><?= $result['studio']?></td>
+				 <td><?= $result['total_kursi']?></td>
+         <td><?= $result['harga']?></td>
+         <td align=center>
+            <a href="detail_jadwal.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
+            <a href="pesan_tiket.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Pesan</button></a>
+				 </td>
+				</tr>
+				<?php }?>
+        </table>
           </main>
         </div>
     </div>

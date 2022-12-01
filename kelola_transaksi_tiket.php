@@ -75,7 +75,7 @@ $execute = mysqli_query($mysqli, $query);
               <h3 class="h5">Kelola Transaksi Tiket</h3>
             </div>
 
-            <h6 class="h6">List Transaksi Tiket</h6>
+      <h6 class="h6">List Transaksi Tiket</h6>
 
       <table class="table table-bordered">
 				<thead class="table-primary">

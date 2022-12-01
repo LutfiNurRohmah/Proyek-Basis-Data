@@ -1,3 +1,12 @@
+<?php
+require "konek.php";
+require_once("auth.php");
+$find= mysqli_select_db($mysqli, $database);
+$id_user = $_SESSION["user"]['id_user'];
+$query2="SELECT * FROM pengisian_saldo WHERE id_user=$id_user";
+$execute2 = mysqli_query($mysqli, $query2);
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -14,7 +23,7 @@
         </button>
         <div class="navbar-nav">
           <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#">User</a>
+            <a class="nav-link px-3" href="#"><?php echo $_SESSION["user"]["nama_lengkap"] ?></a>
           </div>
         </div>
       </header>
@@ -55,7 +64,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="index.html">
+                  <a class="nav-link" href="logout.php">
                     <span data-feather="layers" class="align-text-bottom"></span>
                     Logout
                   </a>
@@ -68,6 +77,67 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
               <h3 class="h5">Pengisian Saldo</h3>
             </div>
+      
+        <div class="col-sm-6">
+          <div class="card w-75">
+            <div class="card-body">
+              <h5 class="card-title">Total Saldo</h5>
+              <h1><?php echo $_SESSION["user"]["saldo"] ?></h1>
+            </div>
+          </div>
+        </div>
+        
+        <form method=post action=kirimSaldo.php>
+          <div class="card" style="margin-top:40px;">
+            <div class="card-body">
+              <h5 align=center class="card-title">Isi Saldo</h5>
+              <h6>Transfer saldo ke rekening berikut ini:</h6>
+              <p>0057756745276 - BRI</p>
+                  <div class="row mb-3">
+                      <label for="inputDurasi" class="col-sm-2 col-form-label">Jumlah</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="jumlah_isi" class="form-control" id="inputDurasi" placeholder="">
+                      </div>
+                  </div>
+                  <div class="row mb-3">
+                      <label for="inputGroupFile" class="col-sm-2 col-form-label">Bukti Pembayaran</label>
+                      <div class="col-sm-10">
+                        <input type="file" name="bukti_transaksi" class="form-control" id="inputGroupFile02">
+                      </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Kirim</button>
+              </form>
+            </div>
+          </div>
+
+
+      <div class="border-top" style="margin-top:40px;">
+      <h6 class="h6" style="margin-top:15px;">List Pengisian Saldo</h6>
+      </div>
+
+      <table class="table table-bordered">
+        <thead class="table-primary">
+				 <td align=center>Id Isi Saldo</td>
+				 <td align=center>Id User</td>
+				 <td align=center>Jumlah Isi</td>
+				 <td align=center>Waktu Transaksi</td>
+         <td align=center>Status</td>
+         <td align=center>Pilihan Menu</td>
+				</thead>
+				<?php while($result = mysqli_fetch_assoc($execute2)){ ?>
+				<tr border=1>
+				 <td><?= $result['id_isisaldo']?></td>
+				 <td><?= $result['id_user']?></td>
+				 <td><?= $result['jumlah_isi']?></td>
+				 <td><?= $result['waktu_transaksi']?></td>
+				 <td><?= $result['status']?></td>
+         <td  align=center>
+          <a href="update.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Edit</button></a>
+          <a href="deleteIsiSaldo.php?IdIsiSaldo=<?= $result['id_isisaldo']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
+				 </td>
+				</tr>
+				<?php }?>
+        </table>
           </main>
         </div>
     </div>

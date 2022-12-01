@@ -1,3 +1,5 @@
+<?php require_once("auth.php"); ?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -14,7 +16,7 @@
         </button>
         <div class="navbar-nav">
           <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#">User</a>
+            <a class="nav-link px-3" href="#"><?php echo  $_SESSION["user"]["nama_lengkap"] ?></a>
           </div>
         </div>
       </header>
@@ -55,7 +57,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="index.html">
+                  <a class="nav-link" href="logout.php">
                     <span data-feather="layers" class="align-text-bottom"></span>
                     Logout
                   </a>
