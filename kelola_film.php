@@ -3,6 +3,44 @@ require "konek.php";
 $find= mysqli_select_db($mysqli, $database);
 $query="SELECT * FROM film";
 $execute = mysqli_query($mysqli, $query);
+
+if(isset($_POST['tombol']))
+{
+    if(!isset($_FILES['gambar']['tmp_name'])){
+        echo '<span style="color:red"><b><u><i>Pilih file gambar</i></u></b></span>';
+    }
+    else
+    {
+        $file_name = $_FILES['gambar']['name'];
+        $file_size = $_FILES['gambar']['size'];
+        $file_type = $_FILES['gambar']['type'];
+        if ($file_size < 2048000 and ($file_type =='image/jpeg' or $file_type == 'image/png'))
+        {
+            $image   = addslashes(file_get_contents($_FILES['gambar']['tmp_name']));
+            $judul = @$_POST["judul"];
+            $genre = @$_POST["genre"];
+            $durasi = @$_POST["durasi"];
+            $sinopsis = @$_POST["sinopsis"];
+            $tanggal_rilis = @$_POST["tanggal_rilis"];
+            $produser = @$_POST["produser"];
+            $sutradara = @$_POST["sutradara"];
+            $penulis = @$_POST["penulis"];
+            $produksi = @$_POST["produksi"];
+
+            $query="INSERT INTO film (judul, genre, gambar, durasi, sinopsis, tanggal_rilis, produser, penulis, sutradara, produksi) VALUES('$judul','$genre','$image','$durasi','$sinopsis', '$tanggal_rilis', '$produser', '$penulis', '$sutradara', '$produksi')";
+            $simpan= mysqli_query($mysqli, $query);
+
+            if($simpan){
+              header("Location:kelola_film.php");
+            }else{
+              echo "Data gagal disimpan";}
+        }
+        else
+        {
+            echo '<span style="color:red"><b><u><i>Ukuruan File / Tipe File Tidak Sesuai</i></u></b></span>';
+        }
+    }
+}
 ?>
 
 <!doctype html>
@@ -62,7 +100,7 @@ $execute = mysqli_query($mysqli, $query);
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="index.html">
+                  <a class="nav-link" href="index.php">
                     <span data-feather="layers" class="align-text-bottom"></span>
                     Logout
                   </a>
@@ -77,7 +115,7 @@ $execute = mysqli_query($mysqli, $query);
             </div>
 
     <!-- input film -->
-    <form method=post action=simpanFilm.php>
+    <form method=post action="" enctype="multipart/form-data">
         <h6 class="h6">Tambah Film</h6>
             <div class="row mb-3">
             <label for="inputJudul" class="col-sm-2 col-form-label">Judul</label>
@@ -139,7 +177,7 @@ $execute = mysqli_query($mysqli, $query);
               <input type="file" name="gambar" class="form-control" id="inputGroupFile02">
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="submit" class="btn btn-primary" name="tombol">Simpan</button>
     </form>
 
     <!-- list film -->
@@ -164,7 +202,7 @@ $execute = mysqli_query($mysqli, $query);
 				 <td><?= $result['durasi']?></td>
 				 <td><?= $result['tanggal_rilis']?></td>
          <td align=center>
-            <a href="detail_film.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
+            <a href="detail_film.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Lihat Detail</button></a>
             <a href="update.php?Nama=<?= $result[0]?>"><button type="button" class="btn btn-primary">Edit</button></a>
             <a href="deleteFilm.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
 				 </td>
