@@ -2,23 +2,54 @@
 require "konek.php";
 require_once("auth_admin.php");
 $find= mysqli_select_db($mysqli, $database);
-$query="SELECT * FROM film";
-$execute = mysqli_query($mysqli, $query);
+// $query="SELECT * FROM film";
+// $execute = mysqli_query($mysqli, $query);
 
-if(isset($_POST['tombol']))
-{
-    if(!isset($_FILES['gambar']['tmp_name'])){
-        echo '<span style="color:red"><b><u><i>Pilih file gambar</i></u></b></span>';
-    }
-    else
-    {
-        $file_name = $_FILES['gambar']['name'];
-        $file_size = $_FILES['gambar']['size'];
-        $file_type = $_FILES['gambar']['type'];
-        if ($file_size < 2048000 and ($file_type =='image/jpeg' or $file_type == 'image/png'))
-        {
-            $image   = addslashes(file_get_contents($_FILES['gambar']['tmp_name']));
-            $judul = @$_POST["judul"];
+// if(isset($_POST['tombol']))
+// {
+//     if(!isset($_FILES['gambar']['tmp_name'])){
+//         echo '<span style="color:red"><b><u><i>Pilih file gambar</i></u></b></span>';
+//     }
+//     else
+//     {
+//         $file_name = $_FILES['gambar']['name'];
+//         $file_size = $_FILES['gambar']['size'];
+//         $file_type = $_FILES['gambar']['type'];
+//         if ($file_size < 2048000 and ($file_type =='image/jpeg' or $file_type == 'image/png'))
+//         {
+//             $image   = addslashes(file_get_contents($_FILES['gambar']['tmp_name']));
+//             $judul = @$_POST["judul"];
+//             $genre = @$_POST["genre"];
+//             $durasi = @$_POST["durasi"];
+//             $sinopsis = @$_POST["sinopsis"];
+//             $tanggal_rilis = @$_POST["tanggal_rilis"];
+//             $produser = @$_POST["produser"];
+//             $sutradara = @$_POST["sutradara"];
+//             $penulis = @$_POST["penulis"];
+//             $produksi = @$_POST["produksi"];
+
+//             $query="INSERT INTO film (judul, genre, gambar, durasi, sinopsis, tanggal_rilis, produser, penulis, sutradara, produksi) VALUES('$judul','$genre','$image','$durasi','$sinopsis', '$tanggal_rilis', '$produser', '$penulis', '$sutradara', '$produksi')";
+//             $simpan= mysqli_query($mysqli, $query);
+
+//             if($simpan){
+//               header("Location:kelola_film.php");
+//             }else{
+//               echo "Data gagal disimpan";}
+//         }
+//         else
+//         {
+//             echo '<span style="color:red"><b><u><i>Ukuruan File / Tipe File Tidak Sesuai</i></u></b></span>';
+//         }
+//     }
+// }
+
+$id_film = $_GET['IdFilm'];
+$sql_read = "SELECT * FROM film WHERE id_film='$id_film'";
+$execute_read = mysqli_query($mysqli, $sql_read);
+$result_read = mysqli_fetch_assoc($execute_read);
+
+if(isset($_POST['update'])){
+	        $judul = @$_POST["judul"];
             $genre = @$_POST["genre"];
             $durasi = @$_POST["durasi"];
             $sinopsis = @$_POST["sinopsis"];
@@ -27,20 +58,15 @@ if(isset($_POST['tombol']))
             $sutradara = @$_POST["sutradara"];
             $penulis = @$_POST["penulis"];
             $produksi = @$_POST["produksi"];
-
-            $query="INSERT INTO film (judul, genre, gambar, durasi, sinopsis, tanggal_rilis, produser, penulis, sutradara, produksi) VALUES('$judul','$genre','$image','$durasi','$sinopsis', '$tanggal_rilis', '$produser', '$penulis', '$sutradara', '$produksi')";
-            $simpan= mysqli_query($mysqli, $query);
-
-            if($simpan){
-              header("Location:kelola_film.php");
-            }else{
-              echo "Data gagal disimpan";}
-        }
-        else
-        {
-            echo '<span style="color:red"><b><u><i>Ukuruan File / Tipe File Tidak Sesuai</i></u></b></span>';
-        }
-    }
+	
+	$sql = "UPDATE film SET judul='$judul', genre='$genre', durasi='$durasi', sinopsis='$sinopsis', tanggal_rilis='$tanggal_rilis', produser='$produser', sutradara='$sutradara', penulis='$penulis', produksi='$produksi' WHERE id_film='$id_film'";
+	$execute = mysqli_query($mysqli, $sql);
+	
+	if($execute){
+		header('Location:kelola_film.php');
+	}else{
+		echo "GAGAL UPDATE DATA";
+	}
 }
 ?>
 
@@ -115,101 +141,100 @@ if(isset($_POST['tombol']))
               <h3 class="h5">Kelola Film</h3>
             </div>
 
-    <!-- input film -->
-    <form method=post action="" enctype="multipart/form-data">
-        <h6 class="h6">Tambah Film</h6>
+            <!-- <form action="<?php $_SERVER['PHP_SELF']?>" method="POST">
+			<h2 align=center></h2>
+			<table align=center>
+					<tr>
+					   <td>Nama</td>
+					   <td><input type=char name="Nama" value="<?=$result_read['Nama']?>" size=50></td>
+					</tr>
+					<tr>
+					   <td>Nomor HP</td>
+					   <td><input type=char name="NomorHP" value="<?=$result_read['NomorHP']?>" size=50></td>
+					</tr>
+					<tr>
+					   <td>Alamat</td>
+					   <td><input type=char name="Alamat" value="<?=$result_read['Alamat']?>" size=50></td>
+					</tr>
+					<tr>
+					   <td>Jumlah Tagihan</td>
+					   <td><input type=int name="JumlahTagihan" value="<?=$result_read['JumlahTagihan']?>" size=50></td>
+					</tr>
+					<tr>
+					   <td>Tanggal Jatuh Tempo</td>
+					   <td><input type=date name="TanggalJatuhTempo" value="<?=$result_read['TanggalJatuhTempo']?>" size=12></td>
+					</tr>
+			</table>
+			
+			<center><input type=submit name="Update" Value="Update"></center>
+		</form> -->
+
+        <form method=post action="<?php $_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
+        <h6 class="h6">Update Film</h6>
             <div class="row mb-3">
             <label for="inputJudul" class="col-sm-2 col-form-label">Judul</label>
             <div class="col-sm-10">
-              <input type="text" name="judul" class="form-control" id="inputJudul" placeholder="">
+              <input type="text" name="judul" class="form-control" id="inputJudul" value="<?=$result_read['judul']?>">
             </div>
         </div>
         <div class="row mb-3">
             <label for="inputGenre" class="col-sm-2 col-form-label">Genre</label>
             <div class="col-sm-10">
-              <input type="text" name="genre" class="form-control" id="inputGenre" placeholder="">
+              <input type="text" name="genre" class="form-control" id="inputGenre" value="<?=$result_read['genre']?>">
             </div>
         </div>
         <div class="row mb-3">
             <label for="inputDurasi" class="col-sm-2 col-form-label">Durasi</label>
             <div class="col-sm-10">
-              <input type="text" name="durasi" class="form-control" id="inputDurasi" placeholder="">
+              <input type="text" name="durasi" class="form-control" id="inputDurasi" value="<?=$result_read['durasi']?>">
             </div>
         </div>
         <div class="row mb-3">
             <label for="inputGenre" class="col-sm-2 col-form-label">Sinopsis</label>
             <div class="col-sm-10">
-              <input type="text" name="sinopsis" class="form-control" id="inputGenre" placeholder="">
+              <input type="text" name="sinopsis" class="form-control" id="inputGenre" value="<?=$result_read['sinopsis']?>">
             </div>
         </div>
         <div class="row mb-3">
             <label for="inputDurasi" class="col-sm-2 col-form-label">Tanggal Rilis</label>
             <div class="col-sm-10">
-              <input type="date" name="tanggal_rilis" class="form-control" id="inputDurasi" placeholder="">
+              <input type="date" name="tanggal_rilis" class="form-control" id="inputDurasi" value="<?=$result_read['tanggal_rilis']?>">
             </div>
         </div>
         <div class="row mb-3">
             <label for="inputGenre" class="col-sm-2 col-form-label">Produser</label>
             <div class="col-sm-10">
-              <input type="text" name="produser" class="form-control" id="inputGenre" placeholder="">
+              <input type="text" name="produser" class="form-control" id="inputGenre" value="<?=$result_read['produser']?>">
             </div>
         </div>
         <div class="row mb-3">
             <label for="inputDurasi" class="col-sm-2 col-form-label">Sutradara</label>
             <div class="col-sm-10">
-              <input type="text" name="sutradara" class="form-control" id="inputDurasi" placeholder="">
+              <input type="text" name="sutradara" class="form-control" id="inputDurasi" value="<?=$result_read['sutradara']?>">
             </div>
         </div>
         <div class="row mb-3">
             <label for="inputGenre" class="col-sm-2 col-form-label">Penulis</label>
             <div class="col-sm-10">
-              <input type="text" name="penulis" class="form-control" id="inputGenre" placeholder="">
+              <input type="text" name="penulis" class="form-control" id="inputGenre" value="<?=$result_read['penulis']?>">
             </div>
         </div>
         <div class="row mb-3">
             <label for="inputDurasi" class="col-sm-2 col-form-label">Produksi</label>
             <div class="col-sm-10">
-              <input type="text" name="produksi" class="form-control" id="inputDurasi" placeholder="">
+              <input type="text" name="produksi" class="form-control" id="inputDurasi" value="<?=$result_read['produksi']?>">
             </div>
         </div>
-        <div class="row mb-3">
+        <!-- <div class="row mb-3">
             <label for="inputGroupFile" class="col-sm-2 col-form-label">Gambar</label>
             <div class="col-sm-10">
               <input type="file" name="gambar" class="form-control" id="inputGroupFile02">
             </div>
-        </div>
-        <button type="submit" class="btn btn-primary" name="tombol">Simpan</button>
+        </div> -->
+        <button type="submit" class="btn btn-primary" name="update">Simpan</button>
     </form>
 
-    <!-- list film -->
-    <div class="border-top" style="margin-top:40px;">
-      <h6 class="h6" style="margin-top:15px;">List Film</h6>
-      </div>
-      
-      <table class="table table-bordered" style="margin-bottom:40px;">
-				<thead class="table-primary">
-				 <td align=center>Id Film</td>
-				 <td align=center>Judul</td>
-				 <td align=center>Genre</td>
-				 <td align=center>Durasi</td>
-         <td align=center>Tanggal Rilis</td>
-         <td align=center>Pilihan Menu</td>
-				</thead>
-				<?php while($result = mysqli_fetch_assoc($execute)){ ?>
-				<tr>
-				 <td><?= $result['id_film']?></td>
-				 <td><?= $result['judul']?></td>
-				 <td><?= $result['genre']?></td>
-				 <td><?= $result['durasi']?></td>
-				 <td><?= $result['tanggal_rilis']?></td>
-         <td align=center>
-            <a href="detail_film.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Lihat Detail</button></a>
-            <a href="update_film.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Edit</button></a>
-            <a href="deleteFilm.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
-				 </td>
-				</tr>
-				<?php }?>
-        </table>
+    
           </main>
         </div>
     </div>

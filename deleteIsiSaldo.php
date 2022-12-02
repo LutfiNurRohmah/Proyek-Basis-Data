@@ -6,7 +6,7 @@ $sql = "DELETE FROM pengisian_saldo WHERE id_isisaldo='$id_isisaldo'";
 $execute= mysqli_query($mysqli, $sql);
 
 if($execute){
-	header("Location:kelola_user.php");
+	header("Location:pengisian_saldo.php");
 }
 else{
 	echo "GAGAL MENGHAPUS";

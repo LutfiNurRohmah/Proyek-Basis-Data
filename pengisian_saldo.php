@@ -5,6 +5,36 @@ $find= mysqli_select_db($mysqli, $database);
 $id_user = $_SESSION["user"]['id_user'];
 $query2="SELECT * FROM pengisian_saldo WHERE id_user=$id_user";
 $execute2 = mysqli_query($mysqli, $query2);
+
+if(isset($_POST['tombol']))
+{
+    if(!isset($_FILES['bukti_transaksi']['tmp_name'])){
+        echo '<span style="color:red"><b><u><i>Pilih file gambar</i></u></b></span>';
+    }
+    else
+    {
+        $file_name = $_FILES['bukti_transaksi']['name'];
+        $file_size = $_FILES['bukti_transaksi']['size'];
+        $file_type = $_FILES['bukti_transaksi']['type'];
+        if ($file_size < 4096000 and ($file_type =='image/jpeg' or $file_type == 'image/png'))
+        {
+            $image   = addslashes(file_get_contents($_FILES['bukti_transaksi']['tmp_name']));
+            $jumlah_isi = @$_POST["jumlah_isi"];
+
+            $query="INSERT INTO pengisian_saldo (id_user, jumlah_isi, bukti_transaksi) VALUES('$id_user','$jumlah_isi','$image')";
+            $simpan= mysqli_query($mysqli, $query);
+
+            if($simpan){
+              header("Location:pengisian_saldo.php");
+            }else{
+              echo "Data gagal disimpan";}
+        }
+        else
+        {
+            echo '<span style="color:red"><b><u><i>Ukuruan File / Tipe File Tidak Sesuai</i></u></b></span>';
+        }
+    }
+}
 ?>
 
 <!doctype html>
@@ -87,7 +117,7 @@ $execute2 = mysqli_query($mysqli, $query2);
           </div>
         </div>
         
-        <form method=post action=kirimSaldo.php>
+        <form method=post action="" enctype="multipart/form-data">
           <div class="card" style="margin-top:40px;">
             <div class="card-body">
               <h5 align=center class="card-title">Isi Saldo</h5>
@@ -105,10 +135,9 @@ $execute2 = mysqli_query($mysqli, $query2);
                         <input type="file" name="bukti_transaksi" class="form-control" id="inputGroupFile02">
                       </div>
                   </div>
-                  <button type="submit" class="btn btn-primary">Kirim</button>
+                  <button type="submit" class="btn btn-primary" name="tombol">Kirim</button>
               </form>
-            </div>
-          </div>
+            
 
 
       <div class="border-top" style="margin-top:40px;">

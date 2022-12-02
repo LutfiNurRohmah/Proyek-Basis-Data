@@ -1,4 +1,5 @@
 <?php
+require_once("auth_admin.php");
 require "konek.php";
 $find= mysqli_select_db($mysqli, $database);
 $query="SELECT * FROM user";
@@ -64,7 +65,7 @@ $execute2 = mysqli_query($mysqli, $query2);
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="index.php">
+                  <a class="nav-link" href="logout_admin.php">
                     <span data-feather="layers" class="align-text-bottom"></span>
                     Logout
                   </a>
@@ -127,7 +128,7 @@ $execute2 = mysqli_query($mysqli, $query2);
 				 <td><?= $result['status']?></td>
          <td  align=center>
           <a href="konfim_saldo.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Konfirmasi</button></a>
-          <a href="deleteIsiSaldo.php?IdIsiSaldo=<?= $result['id_isisaldo']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
+          <!-- <a href="deleteIsiSaldo.php?IdIsiSaldo=<?= $result['id_isisaldo']?>"><button type="button" class="btn btn-primary">Hapus</button></a> -->
 				 </td>
 				</tr>
 				<?php }?>

@@ -1,5 +1,6 @@
 <?php
 require "konek.php";
+require_once("auth_admin.php");
 $find= mysqli_select_db($mysqli, $database);
 $query="SELECT * FROM transaksi_tiket";
 $execute = mysqli_query($mysqli, $query);
@@ -61,7 +62,7 @@ $execute = mysqli_query($mysqli, $query);
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="index.php">
+                  <a class="nav-link" href="logout_admin.php">
                     <span data-feather="layers" class="align-text-bottom"></span>
                     Logout
                   </a>
