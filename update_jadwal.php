@@ -6,6 +6,29 @@ $query="SELECT * FROM jadwal";
 $execute = mysqli_query($mysqli, $query);
 $query2="SELECT id_film, judul FROM film";
 $execute2= mysqli_query($mysqli, $query2);
+
+$id_jadwal = $_GET['IdJadwal'];
+$sql_read = "SELECT * FROM jadwal WHERE id_jadwal='$id_jadwal'";
+$execute_read = mysqli_query($mysqli, $sql_read);
+$result_read = mysqli_fetch_assoc($execute_read);
+
+if(isset($_POST['update'])){
+    $id_film = @$_POST["id_film"];
+    $tanggal_tayang = @$_POST["tanggal_tayang"];
+    $jam_tayang = @$_POST["jam_tayang"];
+    $studio = @$_POST["studio"];
+    $total_kursi= @$_POST["total_kursi"];
+    $harga = @$_POST["harga"];
+	
+	$sql = "UPDATE jadwal SET id_film='$id_film', tanggal_tayang='$tanggal_tayang', jam_tayang='$jam_tayang', studio='$studio', total_kursi='$total_kursi', harga='$harga' WHERE id_jadwal='$id_jadwal'";
+	$execute = mysqli_query($mysqli, $sql);
+	
+	if($execute){
+		header('Location:kelola_jadwal.php');
+	}else{
+		echo "GAGAL UPDATE DATA";
+	}
+}
 ?>
 
 <!doctype html>
@@ -80,13 +103,13 @@ $execute2= mysqli_query($mysqli, $query2);
             </div>
 
             <!-- input film -->
-    <form method=post action=simpanJadwal.php>
-      <h6 class="h6">Tambah Jadwal</h6>
+    <form method=post action="<?php $_SERVER['PHP_SELF']?>">
+      <h6 class="h6">Update Jadwal</h6>
         <div class="row mb-3">
           <label for="inputIDFilm" class="col-sm-2 col-form-label">Film</label>
           <div class="col-sm-10">
             <select type="text" name="id_film" class="form-select form-control" aria-label="Default select example">
-              <option selected>Pilih Film</option>
+              <option selected><?=$result_read['id_film']?></option>
               <?php while($pilihID = mysqli_fetch_assoc($execute2)){ ?>
                 <option value="<?= $pilihID['id_film']?>"><?= $pilihID['id_film']?>-<?= $pilihID['judul']?></option>
               <?php }?>
@@ -96,69 +119,36 @@ $execute2= mysqli_query($mysqli, $query2);
         <div class="row mb-3">
             <label for="inputTGLTY" class="col-sm-2 col-form-label">Tanggal Tayang</label>
             <div class="col-sm-10">
-              <input type="date" name="tanggal_tayang" class="form-control" id="inputTGLTY" placeholder="">
+              <input type="date" name="tanggal_tayang" class="form-control" id="inputTGLTY" value="<?=$result_read['tanggal_tayang']?>">
             </div>
         </div>
         <div class="row mb-3">
             <label for="inputJTY" class="col-sm-2 col-form-label">Jam Tayang</label>
             <div class="col-sm-10">
-              <input type="time" name="jam_tayang" class="form-control" id="inputJTY" placeholder="">
+              <input type="time" name="jam_tayang" class="form-control" id="inputJTY" value="<?=$result_read['jam_tayang']?>">
             </div>
         </div>
         <div class="row mb-3">
             <label for="inputStudio" class="col-sm-2 col-form-label">Studio</label>
             <div class="col-sm-10">
-              <input type="text" name="studio" class="form-control" id="inputStudio" placeholder="">
+              <input type="text" name="studio" class="form-control" id="inputStudio" value="<?=$result_read['studio']?>">
             </div>
         </div>
         <div class="row mb-3">
             <label for="inputStudio" class="col-sm-2 col-form-label">Jumlah Kursi</label>
             <div class="col-sm-10">
-              <input type="text" name="total_kursi" class="form-control" id="inputStudio" placeholder="">
+              <input type="text" name="total_kursi" class="form-control" id="inputStudio" value="<?=$result_read['total_kursi']?>">
             </div>
         </div>
         <div class="row mb-3">
             <label for="inputHarga" class="col-sm-2 col-form-label">Harga</label>
             <div class="col-sm-10">
-              <input type="text" name="harga" class="form-control" id="inputharga" placeholder="">
+              <input type="text" name="harga" class="form-control" id="inputharga" value="<?=$result_read['harga']?>">
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="submit" class="btn btn-primary" name="update">Simpan</button>
 </form>
 
-        <!-- list jadwal -->
-    <div class="border-top" style="margin-top:40px;">
-      <h6 class="h6" style="margin-top:15px;">List Jadwal Tayang</h6>
-      </div>
-      
-      <table class="table table-bordered" style="margin-bottom:40px;">
-				<thead class="table-primary">
-				 <td align=center>Id Jadwal</td>
-				 <td align=center>Id Film</td>
-				 <td align=center>Tanggal Tayang</td>
-				 <td align=center>Jam Tayang</td>
-         <td align=center>Studio</td>
-         <td align=center>Jumlah Kursi</td>
-         <td align=center>Harga</td>
-         <td align=center>Pilihan Menu</td>
-				</thead>
-				<?php while($result = mysqli_fetch_assoc($execute)){ ?>
-				<tr>
-				 <td><?= $result['id_jadwal']?></td>
-         <td><?= $result['id_film']?></td>
-				 <td><?= $result['tanggal_tayang']?></td>
-				 <td><?= $result['jam_tayang']?></td>
-				 <td><?= $result['studio']?></td>
-				 <td><?= $result['total_kursi']?></td>
-         <td><?= $result['harga']?></td>
-         <td align=center>
-            <a href="detail_jadwal.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
-            <a href="update_jadwal.php?IdJadwal=<?= $result['id_jadwal']?>"><button type="button" class="btn btn-primary">Edit</button></a>
-            <a href="deleteJadwal.php?IdJadwal=<?= $result['id_jadwal']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
-				 </td>
-				</tr>
-				<?php }?>
-        </table>
           </main>
         </div>
     </div>
