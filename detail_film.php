@@ -74,47 +74,44 @@ $query = mysqli_query($mysqli,"SELECT * FROM film WHERE id_film='$id_film'");
               <h3 class="h5">Kelola Film - Detail Film</h3>
             </div>
 
-            <table class="table table-bordered" style="margin-bottom:40px;">
-				<thead class="table-primary">
-				 <td align=center>Id Film</td>
-                 <td align=center>Gambar</td>
-				 <td align=center>Judul</td>
-				 <td align=center>Genre</td>
-				 <td align=center>Durasi</td>
-                 <td align=center>Sinopsis</td>
-                 <td align=center>Tanggal Rilis</td>
-                 <td align=center>Produser</td>
-                 <td align=center>Penulis</td>
-                 <td align=center>Sutradara</td>
-                 <td align=center>Produksi</td>
-                 <td align=center>Pilihan Menu</td>
-				</thead>
 				<?php while($result = mysqli_fetch_assoc($query)){ ?>
-				<tr>
-				 <td><?= $result['id_film']?></td>
-                 <td><img src="image_film.php?IdFilm=<?php echo $result['id_film']; ?>" width="100"/></td>
-                 <td><?= $result['judul']?></td>
-				 <td><?= $result['genre']?></td>
-				 <td><?= $result['durasi']?></td>
-                 <td><?= $result['sinopsis']?></td>
-				 <td><?= $result['tanggal_rilis']?></td>
-                 <td><?= $result['produser']?></td>
-                 <td><?= $result['penulis']?></td>
-                 <td><?= $result['sutradara']?></td>
-                 <td><?= $result['produksi']?></td>
-         <td align=center>
-            <a href="update.php?Nama=<?= $result[0]?>"><button type="button" class="btn btn-primary">Edit</button></a>
-            <a href="deleteFilm.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
-				 </td>
-				</tr>
+
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="image_film.php?IdFilm=<?php echo $result['id_film']; ?>" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h3 class="card-title"><?= $result['judul']?></h3>
+                <p class="card-text"><?= $result['sinopsis']?></p>
+                <p class="card-text"><small class="text-muted">Genre : </small><?= $result['genre']?></p>
+                <p class="card-text"><small class="text-muted">Durasi: </small><?= $result['durasi']?></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:20px;">
+            <div class="card-body">
+              <p class="card-text"><small class="text-muted">Rilis</small></p>
+              <p class="card-text"><?= $result['tanggal_rilis']?></p>
+              <p class="card-text"><small class="text-muted">Produser</small></p>
+              <p class="card-text"><?= $result['produser']?></p>
+              <p class="card-text"><small class="text-muted">Penulis</small></p>
+              <p class="card-text"><?= $result['penulis']?></p>
+              <p class="card-text"><small class="text-muted">Sutradara</small></p>
+              <p class="card-text"><?= $result['sutradara']?></p>
+              <p class="card-text"><small class="text-muted">Produksi</small></p>
+              <p class="card-text"><?= $result['produksi']?></p>
+              <a href="update_film.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Edit</button></a>
+              <a href="deleteFilm.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Hapus</button></a>   
+            </div>
+          </div>
 				<?php }?>
-        </table>
-    
           </main>
         </div>
-    </div>
-
-      
+    </div>  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>

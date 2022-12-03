@@ -136,6 +136,8 @@ if(isset($_POST['tombol']))
                       </div>
                   </div>
                   <button type="submit" class="btn btn-primary" name="tombol">Kirim</button>
+            </div>
+          </div>
               </form>
             
 

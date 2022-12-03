@@ -141,34 +141,6 @@ if(isset($_POST['update'])){
               <h3 class="h5">Kelola Film</h3>
             </div>
 
-            <!-- <form action="<?php $_SERVER['PHP_SELF']?>" method="POST">
-			<h2 align=center></h2>
-			<table align=center>
-					<tr>
-					   <td>Nama</td>
-					   <td><input type=char name="Nama" value="<?=$result_read['Nama']?>" size=50></td>
-					</tr>
-					<tr>
-					   <td>Nomor HP</td>
-					   <td><input type=char name="NomorHP" value="<?=$result_read['NomorHP']?>" size=50></td>
-					</tr>
-					<tr>
-					   <td>Alamat</td>
-					   <td><input type=char name="Alamat" value="<?=$result_read['Alamat']?>" size=50></td>
-					</tr>
-					<tr>
-					   <td>Jumlah Tagihan</td>
-					   <td><input type=int name="JumlahTagihan" value="<?=$result_read['JumlahTagihan']?>" size=50></td>
-					</tr>
-					<tr>
-					   <td>Tanggal Jatuh Tempo</td>
-					   <td><input type=date name="TanggalJatuhTempo" value="<?=$result_read['TanggalJatuhTempo']?>" size=12></td>
-					</tr>
-			</table>
-			
-			<center><input type=submit name="Update" Value="Update"></center>
-		</form> -->
-
         <form method=post action="<?php $_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
         <h6 class="h6">Update Film</h6>
             <div class="row mb-3">
