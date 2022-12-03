@@ -1,7 +1,9 @@
 <?php
 include('konek.php');
+require_once("auth_admin.php");
 $id_film=$_GET['IdFilm'];
-$query = mysqli_query($mysqli,"SELECT * FROM film WHERE id_film='$id_film'");
+$query = "SELECT * FROM film WHERE id_film='$id_film'";
+$execute = mysqli_query($mysqli, $query);
 ?>
 
 <!doctype html>
@@ -74,9 +76,9 @@ $query = mysqli_query($mysqli,"SELECT * FROM film WHERE id_film='$id_film'");
               <h3 class="h5">Kelola Film - Detail Film</h3>
             </div>
 
-				<?php while($result = mysqli_fetch_assoc($query)){ ?>
+				<?php while($result = mysqli_fetch_assoc($execute)){ ?>
 
-        <div class="card mb-3" style="max-width: 540px;">
+        <div class="card" style="max-width: 600px;">
           <div class="row g-0">
             <div class="col-md-4">
               <img src="image_film.php?IdFilm=<?php echo $result['id_film']; ?>" class="img-fluid rounded-start" alt="...">
@@ -87,12 +89,14 @@ $query = mysqli_query($mysqli,"SELECT * FROM film WHERE id_film='$id_film'");
                 <p class="card-text"><?= $result['sinopsis']?></p>
                 <p class="card-text"><small class="text-muted">Genre : </small><?= $result['genre']?></p>
                 <p class="card-text"><small class="text-muted">Durasi: </small><?= $result['durasi']?></p>
+                <a href="update_film.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Edit</button></a>
+                <a href="deleteFilm.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="card" style="margin-top:20px;">
+        <div class="card" style="margin-top:20px; margin-bottom:20px;">
             <div class="card-body">
               <p class="card-text"><small class="text-muted">Rilis</small></p>
               <p class="card-text"><?= $result['tanggal_rilis']?></p>
@@ -103,9 +107,7 @@ $query = mysqli_query($mysqli,"SELECT * FROM film WHERE id_film='$id_film'");
               <p class="card-text"><small class="text-muted">Sutradara</small></p>
               <p class="card-text"><?= $result['sutradara']?></p>
               <p class="card-text"><small class="text-muted">Produksi</small></p>
-              <p class="card-text"><?= $result['produksi']?></p>
-              <a href="update_film.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Edit</button></a>
-              <a href="deleteFilm.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Hapus</button></a>   
+              <p class="card-text"><?= $result['produksi']?></p>   
             </div>
           </div>
 				<?php }?>

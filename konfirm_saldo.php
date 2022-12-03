@@ -2,10 +2,47 @@
 require_once("auth_admin.php");
 require "konek.php";
 $find= mysqli_select_db($mysqli, $database);
-$query="SELECT * FROM user";
-$query2="SELECT * FROM pengisian_saldo";
-$execute = mysqli_query($mysqli, $query);
+$id_isisaldo=$_GET['IdSaldo'];
+
+$query2="SELECT * FROM user INNER JOIN pengisian_saldo USING (id_user) WHERE id_isisaldo='$id_isisaldo'";
 $execute2 = mysqli_query($mysqli, $query2);
+
+$query = "SELECT * FROM pengisian_saldo WHERE id_isisaldo='$id_isisaldo'";
+$execute = mysqli_query($mysqli, $query);
+
+$result = mysqli_fetch_assoc($execute2);
+
+if(isset($_POST['terima']) and $result['status']=='Pending'){
+    $jumlah_saldo = $result['saldo'] + $result['jumlah_isi'];
+    $status = "Success";
+    $id_user = $result['id_user'];
+    $id_isisaldo = $result['id_isisaldo'];
+
+    $sql = "UPDATE user SET saldo='$jumlah_saldo' WHERE id_user='$id_user'";
+    $tambahSaldo = mysqli_query($mysqli, $sql);
+
+    $sql2 = "UPDATE pengisian_saldo SET status='$status' WHERE id_isisaldo='$id_isisaldo'";
+    $ubahStatus = mysqli_query($mysqli, $sql2);
+
+    if($tambahSaldo and $ubahStatus){
+    header('Location:kelola_user.php');
+    }else{
+    echo "GAGAL UPDATE DATA";
+    }
+}
+if(isset($_POST['tolak']) and $result['status']=='Pending'){
+    $status = "Gagal";
+    $id_isisaldo = $result['id_isisaldo'];
+
+    $sql2 = "UPDATE pengisian_saldo SET status='$status' WHERE id_isisaldo='$id_isisaldo'";
+    $ubahStatus = mysqli_query($mysqli, $sql2);
+
+    if($ubahStatus){
+    header('Location:kelola_user.php');
+    }else{
+    echo "GAGAL UPDATE DATA";
+    }
+}
 ?>
 
 <!doctype html>
@@ -13,7 +50,7 @@ $execute2 = mysqli_query($mysqli, $query2);
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kelola User</title>
+    <title>Konfirmasi Saldo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
   <body>
@@ -76,63 +113,32 @@ $execute2 = mysqli_query($mysqli, $query2);
           </nav>
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-              <h3 class="h5">Kelola User</h3>
+              <h3 class="h5">Kelola User - Konfirmasi Pengisian Saldo</h3>
             </div>
 
-            
-              <h6 class="h6">List User</h6>
+            <div class="card" style="max-width: 700px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                    <img src="image_bukti.php?IdSaldo=<?php echo $result['id_isisaldo']; ?>" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                    <div class="card-body" style="margin-left:15px;">
+                        <h3 class="card-title"><small class="text-muted">Jumlah Isi</small></h3>
+                        <h3 class="card-title"><?= $result['jumlah_isi']?></h3>
+                        <p class="card-text"><small class="text-muted">Id Isi Saldo&emsp;&emsp;&nbsp;&nbsp;: </small><?= $result['id_isisaldo']?></p>
+                        <p class="card-text"><small class="text-muted">Id User&emsp;&emsp;&emsp;&emsp;&nbsp;: </small><?= $result['id_user']?></p>
+                        <p class="card-text"><small class="text-muted">Nama&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;: </small><?= $result['nama_lengkap']?></p>
+                        <p class="card-text"><small class="text-muted">Waktu Transaksi : </small><?= $result['waktu_transaksi']?></p>
+                        <p class="card-text"><small class="text-muted">Status&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;: </small><?= $result['status']?></p>
+                        <form method=post>
+                        <button type="submit" class="btn btn-primary" name="terima">Terima</button>
+                        <button type="submit" class="btn btn-primary" name="terima">Tolak</button>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
 
-      <table class="table table-bordered">
-				<thead class="table-primary">
-				 <!-- <td align=center>Id User</td> -->
-				 <td align=center>Nama Lengkap</td>
-				 <td align=center>Email</td>
-				 <td align=center>Nomor HP</td>
-         <td align=center>Saldo</td>
-         <td align=center>Pilihan Menu</td>
-				</thead>
-				<?php while($result = mysqli_fetch_assoc($execute)){ ?>
-				<tr>
-				 <!-- <td><?= $result['id_user']?></td> -->
-				 <td><?= $result['nama_lengkap']?></td>
-				 <td><?= $result['email']?></td>
-				 <td><?= $result['nomor_hp']?></td>
-				 <td><?= $result['saldo']?></td>
-         <td align=center>
-            <a href="detail_user.php?IdUser=<?= $result['id_user']?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
-            <a href="deleteUser.php?IdUser=<?= $result['id_user']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
-				 </td>
-				</tr>
-				<?php }?>
-			</table>
-
-      <div class="border-top" style="margin-top:40px;">
-      <h6 class="h6" style="margin-top:15px;">List Pengisian Saldo</h6>
-      </div>
-      
-      <table class="table table-bordered">
-        <thead class="table-primary">
-				 <td align=center>Id Isi Saldo</td>
-				 <td align=center>Id User</td>
-				 <td align=center>Jumlah Isi</td>
-				 <td align=center>Waktu Transaksi</td>
-         <td align=center>Status</td>
-         <td align=center>Pilihan Menu</td>
-				</thead>
-				<?php while($result = mysqli_fetch_assoc($execute2)){ ?>
-				<tr border=1>
-				 <td><?= $result['id_isisaldo']?></td>
-				 <td><?= $result['id_user']?></td>
-				 <td><?= $result['jumlah_isi']?></td>
-				 <td><?= $result['waktu_transaksi']?></td>
-				 <td><?= $result['status']?></td>
-         <td align=center>
-          <a href="konfirm_saldo.php?IdSaldo=<?= $result['id_isisaldo']?>"><button type="button" class="btn btn-primary">Konfirmasi</button></a>
-          <!-- <a href="deleteIsiSaldo.php?IdIsiSaldo=<?= $result['id_isisaldo']?>"><button type="button" class="btn btn-primary">Hapus</button></a> -->
-				 </td>
-				</tr>
-				<?php }?>
-        </table>
     </main>
         </div>
     </div>

@@ -1,10 +1,10 @@
 <?php
 require "konek.php";
+require_once("auth_admin.php");
 $find= mysqli_select_db($mysqli, $database);
-$query="SELECT * FROM user";
-$query2="SELECT * FROM pengisian_saldo";
+$id_user=$_GET['IdUser'];
+$query="SELECT * FROM user WHERE id_user='$id_user'";
 $execute = mysqli_query($mysqli, $query);
-$execute2 = mysqli_query($mysqli, $query2);
 ?>
 
 <!doctype html>
@@ -78,8 +78,30 @@ $execute2 = mysqli_query($mysqli, $query2);
               <h3 class="h5">Kelola User - Detail User</h3>
             </div>
 
-            
-             
+                  <table class="table table-bordered">
+                    <thead class="table-primary">
+                    <td align=center>Id User</td>
+                    <td align=center>Nama Lengkap</td>
+                    <td align=center>Alamat</td>
+                    <td align=center>Email</td>
+                    <td align=center>Nomor HP</td>
+                    <td align=center>Saldo</td>
+                    <td align=center>Pilihan Menu</td>
+                    </thead>
+                    <?php while($result = mysqli_fetch_assoc($execute)){ ?>
+                    <tr>
+                    <td><?= $result['id_user']?></td>
+                    <td><?= $result['nama_lengkap']?></td>
+                    <td><?= $result['alamat']?></td>
+                    <td><?= $result['email']?></td>
+                    <td><?= $result['nomor_hp']?></td>
+                    <td><?= $result['saldo']?></td>
+                    <td align=center>
+                        <a href="deleteUser.php?IdUser=<?= $result['id_user']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
+                    </td>
+                    </tr>
+                    <?php }?>
+                  </table>
     </main>
         </div>
     </div>
