@@ -2,7 +2,7 @@
 require_once("auth.php");
 require "konek.php";
 $find= mysqli_select_db($mysqli, $database);
-$query="SELECT * FROM jadwal";
+$query="SELECT * FROM jadwal INNER JOIN film USING (id_film)";
 $execute = mysqli_query($mysqli, $query);
 ?>
 
@@ -80,34 +80,65 @@ $execute = mysqli_query($mysqli, $query);
             <div>
               <h6 class="h6" style="margin-top:15px;">List Jadwal Tayang</h6>
             </div>
-      
-      <table class="table table-bordered" style="margin-bottom:40px;">
-				<thead class="table-primary">
-				 <td align=center>Id Jadwal</td>
-				 <td align=center>Id Film</td>
-				 <td align=center>Tanggal Tayang</td>
-				 <td align=center>Jam Tayang</td>
-         <td align=center>Studio</td>
-         <td align=center>Jumlah Kursi</td>
-         <td align=center>Harga</td>
-         <td align=center>Pilihan Menu</td>
-				</thead>
-				<?php while($result = mysqli_fetch_assoc($execute)){ ?>
-				<tr>
-				 <td><?= $result['id_jadwal']?></td>
-         <td><?= $result['id_film']?></td>
-				 <td><?= $result['tanggal_tayang']?></td>
-				 <td><?= $result['jam_tayang']?></td>
-				 <td><?= $result['studio']?></td>
-				 <td><?= $result['total_kursi']?></td>
-         <td><?= $result['harga']?></td>
-         <td align=center>
-            <a href="detail_jadwal.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
-            <a href="pesan_tiket.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Pesan</button></a>
-				 </td>
-				</tr>
-				<?php }?>
-        </table>
+
+        <?php while($result = mysqli_fetch_assoc($execute)){ ?>
+
+          <div class="card" style="max-width: 880px; margin-top:10px;">
+          <div class="row g-0">
+              <div class="col-md-4">
+              <img src="image_film.php?IdFilm=<?php echo $result['id_film']; ?>" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+              <div class="card-body" style="margin-left:15px;">
+                  <h3 class="card-title"><?= $result['judul']?></h3>
+                  <div style="margin-right:20px;">
+                  <table class="table">
+                      <tr>
+                          <td><p class="card-text"><small class="text-muted">Tanggal Tayang</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">:</small></p></td>
+                          <td><p class="card-text"><?= $result['tanggal_tayang']?></p></td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td><p class="card-text"><small class="text-muted">Jam Tayang</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">:</small></p></td>
+                          <td><p class="card-text"><?= $result['jam_tayang']?></p></td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td><p class="card-text"><small class="text-muted">Durasi</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">:</small></p></td>
+                          <td><p class="card-text"><?= $result['durasi']?></p></td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td><p class="card-text"><small class="text-muted">Studio</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">:</small></p></td>
+                          <td><p class="card-text"><?= $result['studio']?></p></td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td><p class="card-text"><small class="text-muted">Total Kursi</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">:</small></p></td>
+                          <td><p class="card-text"><?= $result['total_kursi']?></p></td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td><p class="card-text"><small class="text-muted">Harga</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">:</small></p></td>
+                          <td><p class="card-text"><?= $result['harga']?></p></td>
+                          <td></td>
+                      </tr>
+                  </table>
+                  </div>
+                  <a href="pesan_tiket.php?IdJadwal=<?= $result['id_jadwal']?>""><button type="button" class="btn btn-primary">Pesan</button></a>
+              </div>
+              </div>
+
+          </div>
+          </div>
+
+          <?php }?>
           </main>
         </div>
     </div>

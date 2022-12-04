@@ -2,7 +2,7 @@
 require "konek.php";
 require_once("auth_admin.php");
 $find= mysqli_select_db($mysqli, $database);
-$query="SELECT * FROM jadwal";
+$query="SELECT * FROM jadwal INNER JOIN film USING (id_film)";
 $execute = mysqli_query($mysqli, $query);
 $query2="SELECT id_film, judul FROM film";
 $execute2= mysqli_query($mysqli, $query2);
@@ -134,7 +134,7 @@ $execute2= mysqli_query($mysqli, $query2);
       <table class="table table-bordered" style="margin-bottom:40px;">
 				<thead class="table-primary">
 				 <td align=center>Id Jadwal</td>
-				 <td align=center>Id Film</td>
+				 <td align=center>Judul</td>
 				 <td align=center>Tanggal Tayang</td>
 				 <td align=center>Jam Tayang</td>
          <td align=center>Studio</td>
@@ -145,14 +145,14 @@ $execute2= mysqli_query($mysqli, $query2);
 				<?php while($result = mysqli_fetch_assoc($execute)){ ?>
 				<tr>
 				 <td><?= $result['id_jadwal']?></td>
-         <td><?= $result['id_film']?></td>
+         <td><?= $result['judul']?></td>
 				 <td><?= $result['tanggal_tayang']?></td>
 				 <td><?= $result['jam_tayang']?></td>
 				 <td><?= $result['studio']?></td>
 				 <td><?= $result['total_kursi']?></td>
          <td><?= $result['harga']?></td>
          <td align=center>
-            <a href="detail_jadwal.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
+            <a href="detail_jadwal.php?IdJadwal=<?= $result['id_jadwal']?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
             <a href="update_jadwal.php?IdJadwal=<?= $result['id_jadwal']?>"><button type="button" class="btn btn-primary">Edit</button></a>
             <a href="deleteJadwal.php?IdJadwal=<?= $result['id_jadwal']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
 				 </td>
