@@ -84,7 +84,6 @@ $execute = mysqli_query($mysqli, $query);
 				<thead class="table-primary">
 				 <td align=center>Kode Tiket</td>
 				 <td align=center>Id Jadwal</td>
-				 <td align=center>Nomor Kursi</td>
          <td align=center>Waktu Transaksi</td>
          <td align=center>Pilihan Menu</td>
 				</thead>
@@ -92,10 +91,9 @@ $execute = mysqli_query($mysqli, $query);
 				<tr>
 				 <td><?= $result['kode_tiket']?></td>
 				 <td><?= $result['id_jadwal']?></td>
-				 <td><?= $result['nomor_kursi']?></td>
 				 <td><?= $result['waktu_transaksi']?></td>
          <td align=center>
-            <a href="detail_user.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
+            <a href="detail_riwayat.php?KodeTiket=<?= $result['kode_tiket']?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
             <a href="deleteTransaksi.php?KodeTiket=<?= $result['kode_tiket']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
 				 </td>
 				</tr>

@@ -131,6 +131,7 @@ $execute = mysqli_query($mysqli, $query);
                       </tr>
                   </table>
                   </div>
+                  <a href="lihat_jadwal_detail.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Lihat Detail</button></a>
                   <a href="pesan_tiket.php?IdJadwal=<?= $result['id_jadwal']?>""><button type="button" class="btn btn-primary">Pesan</button></a>
               </div>
               </div>

@@ -1,10 +1,9 @@
 <?php
-require "konek.php";
 require_once("auth.php");
+require "konek.php";
 $find= mysqli_select_db($mysqli, $database);
-$id_user = $_SESSION["user"]['id_user'];
-
-$query = "SELECT * FROM user WHERE id_user='$id_user'";
+$id_film=$_GET['IdFilm'];
+$query="SELECT * FROM jadwal INNER JOIN film USING (id_film) WHERE id_film='$id_film'";
 $execute = mysqli_query($mysqli, $query);
 ?>
 
@@ -13,7 +12,7 @@ $execute = mysqli_query($mysqli, $query);
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Profil</title>
+    <title>Lihat Detail Jadwal Tayang</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
   <body>
@@ -24,7 +23,7 @@ $execute = mysqli_query($mysqli, $query);
         </button>
         <div class="navbar-nav">
           <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#"><?php echo $_SESSION["user"]["nama_lengkap"] ?></a>
+            <a class="nav-link px-3" href="#"><?php echo  $_SESSION["user"]["nama_lengkap"] ?></a>
           </div>
         </div>
       </header>
@@ -41,7 +40,7 @@ $execute = mysqli_query($mysqli, $query);
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="lihat_jadwal.php">
+                  <a class="nav-link bg-primary text-light" href="lihat_jadwal.php">
                     <span data-feather="file" class="align-text-bottom"></span>
                     Lihat Jadwal
                   </a>
@@ -59,7 +58,7 @@ $execute = mysqli_query($mysqli, $query);
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link bg-primary text-light" href="profil.php">
+                  <a class="nav-link" href="profil.php">
                     <span data-feather="bar-chart-2" class="align-text-bottom"></span>
                     Profil
                   </a>
@@ -76,62 +75,95 @@ $execute = mysqli_query($mysqli, $query);
           </nav>
           <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-              <h3 class="h5">Profil</h3>
+              <h3 class="h5">Lihat Jadwal - Detail Jadwal</h3>
             </div>
 
             <?php while($result = mysqli_fetch_assoc($execute)){ ?>
 
-          <div class="card" style="max-width: 600px;">
-          <div class="row">
-              <div class="card-body" style="margin-left:15px;">
-                  <div style="margin-right:20px;">
-                  <table class="table">
+                <div class="row">
+                <div class="col-sm-8">
+                    <div class="card">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                            <img src="image_film.php?IdFilm=<?php echo $result['id_film']; ?>" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                            <div class="card-body">
+                                <h3 class="card-title"><?= $result['judul']?></h3>
+                                <p class="card-text"><?= $result['sinopsis']?></p>
+                                <p class="card-text"><small class="text-muted">Genre : </small><?= $result['genre']?></p>
+                                <p class="card-text"><small class="text-muted">Durasi: </small><?= $result['durasi']?></p>
+                                <a href="pesan_tiket.php?IdJadwal=<?= $result['id_jadwal']?>""><button type="button" class="btn btn-primary">Pesan</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                    <div class="card-body">
+                    <table class="table">
                       <tr>
-                          <td><p class="card-text"><small class="text-muted">Id User</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">Tanggal Tayang</small></p></td>
                           <td><p class="card-text"><small class="text-muted">:</small></p></td>
-                          <td><p class="card-text"><?= $result['id_user']?></p></td>
+                          <td><p class="card-text"><?= $result['tanggal_tayang']?></p></td>
                           <td></td>
                       </tr>
                       <tr>
-                          <td><p class="card-text"><small class="text-muted">Nama Lengkap</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">Jam Tayang</small></p></td>
                           <td><p class="card-text"><small class="text-muted">:</small></p></td>
-                          <td><p class="card-text"><?= $result['nama_lengkap']?></p></td>
+                          <td><p class="card-text"><?= $result['jam_tayang']?></p></td>
                           <td></td>
                       </tr>
                       <tr>
-                          <td><p class="card-text"><small class="text-muted">Alamat</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">Durasi</small></p></td>
                           <td><p class="card-text"><small class="text-muted">:</small></p></td>
-                          <td><p class="card-text"><?= $result['alamat']?></p></td>
+                          <td><p class="card-text"><?= $result['durasi']?></p></td>
                           <td></td>
                       </tr>
                       <tr>
-                          <td><p class="card-text"><small class="text-muted">Email</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">Studio</small></p></td>
                           <td><p class="card-text"><small class="text-muted">:</small></p></td>
-                          <td><p class="card-text"><?= $result['email']?></p></td>
+                          <td><p class="card-text"><?= $result['studio']?></p></td>
                           <td></td>
                       </tr>
                       <tr>
-                          <td><p class="card-text"><small class="text-muted">Nomor HP</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">Total Kursi</small></p></td>
                           <td><p class="card-text"><small class="text-muted">:</small></p></td>
-                          <td><p class="card-text"><?= $result['nomor_hp']?></p></td>
+                          <td><p class="card-text"><?= $result['total_kursi']?></p></td>
                           <td></td>
                       </tr>
-                  </table>
-                  <a href="update_user.php?IdUser=<?= $result['id_user']?>"><button type="button" class="btn btn-primary">Edit</button></a>
+                      <tr>
+                          <td><p class="card-text"><small class="text-muted">Harga</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">:</small></p></td>
+                          <td><p class="card-text"><?= $result['harga']?></p></td>
+                          <td></td>
+                      </tr>
+                    </table>
+                    </div>
+                    </div>
+                </div>
+                </div>
 
-              </div>
-              </div>
-
-          </div>
-          </div>
-
-          <?php }?>
-
-          </main>
+            <div class="card" style="margin-top:20px; margin-bottom:20px;">
+                <div class="card-body">
+                <p class="card-text"><small class="text-muted">Rilis</small></p>
+                <p class="card-text"><?= $result['tanggal_rilis']?></p>
+                <p class="card-text"><small class="text-muted">Produser</small></p>
+                <p class="card-text"><?= $result['produser']?></p>
+                <p class="card-text"><small class="text-muted">Penulis</small></p>
+                <p class="card-text"><?= $result['penulis']?></p>
+                <p class="card-text"><small class="text-muted">Sutradara</small></p>
+                <p class="card-text"><?= $result['sutradara']?></p>
+                <p class="card-text"><small class="text-muted">Produksi</small></p>
+                <p class="card-text"><?= $result['produksi']?></p>   
+                </div>
+            </div>
+            <?php }?>
+        </main>
         </div>
     </div>
-
-      
+   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>
