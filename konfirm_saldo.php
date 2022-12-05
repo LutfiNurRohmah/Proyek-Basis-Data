@@ -132,7 +132,7 @@ if(isset($_POST['tolak']) and $result['status']=='Pending'){
                         <p class="card-text"><small class="text-muted">Status&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;: </small><?= $result['status']?></p>
                         <form method=post>
                         <button type="submit" class="btn btn-primary" name="terima">Terima</button>
-                        <button type="submit" class="btn btn-primary" name="terima">Tolak</button>
+                        <button type="submit" class="btn btn-primary" name="tolak">Tolak</button>
                         </form>
                     </div>
                     </div>

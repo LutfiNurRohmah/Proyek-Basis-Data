@@ -3,6 +3,8 @@ require "konek.php";
 require_once("auth.php");
 $find= mysqli_select_db($mysqli, $database);
 $id_user = $_SESSION["user"]['id_user'];
+$query = "SELECT saldo FROM user WHERE id_user='$id_user'";
+$saldo = mysqli_fetch_assoc(mysqli_query($mysqli, $query));
 $query2="SELECT * FROM pengisian_saldo WHERE id_user=$id_user";
 $execute2 = mysqli_query($mysqli, $query2);
 
@@ -53,7 +55,7 @@ if(isset($_POST['tombol']))
         </button>
         <div class="navbar-nav">
           <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#"><?php echo $_SESSION["user"]["nama_lengkap"] ?></a>
+            <a class="nav-link px-3" href="#"><?php echo $_SESSION["user"]['nama_lengkap'];?></a>
           </div>
         </div>
       </header>
@@ -112,7 +114,7 @@ if(isset($_POST['tombol']))
           <div class="card w-75">
             <div class="card-body">
               <h5 class="card-title">Total Saldo</h5>
-              <h1><?php echo $_SESSION["user"]["saldo"] ?></h1>
+              <h2><?php echo $saldo['saldo'] ?></h2>
             </div>
           </div>
         </div>

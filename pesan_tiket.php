@@ -2,8 +2,36 @@
 require_once("auth.php");
 require "konek.php";
 $find= mysqli_select_db($mysqli, $database);
-$query="SELECT * FROM jadwal INNER JOIN film USING (id_film)";
+
+$id_user = $_SESSION["user"]['id_user'];
+$query = "SELECT nama_lengkap, saldo FROM user WHERE id_user='$id_user'";
 $execute = mysqli_query($mysqli, $query);
+$result = mysqli_fetch_assoc($execute);
+
+$id_jadwal=$_GET['IdJadwal'];
+$query2="SELECT * FROM jadwal INNER JOIN film USING (id_film) WHERE id_jadwal='$id_jadwal'";
+$execute2 = mysqli_query($mysqli, $query2);
+$result2 = mysqli_fetch_assoc($execute2);
+
+if(isset($_POST['pesan'])){
+    if($result['saldo'] >= $result2['harga']){
+      $sisa_saldo = $result['saldo'] - $result2['harga'];
+
+      $update_saldo = "UPDATE user SET saldo='$sisa_saldo' WHERE id_user='$id_user'";
+      $tambahtransaksi = "INSERT INTO transaksi_tiket (id_user, id_jadwal) VALUES ('$id_user', '$id_jadwal')";
+
+      $execute3 = mysqli_query($mysqli, $tambahtransaksi);
+      $execute4 = mysqli_query($mysqli, $update_saldo);
+
+      if($execute3 AND $execute4){
+        header('Location:riwayat_transaksi.php');
+      }else{
+      echo "GAGAL UPDATE DATA";
+      }
+    }else{
+      echo "Saldo tidak mencukupi";
+    }
+}
 ?>
 
 <!doctype html>
@@ -76,6 +104,78 @@ $execute = mysqli_query($mysqli, $query);
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
               <h3 class="h5">Pesan Tiket</h3>
             </div>
+
+          <div class="row">
+          <div class="col-sm-6">
+          <div class="card g-0">
+              <div class="card-body" style="margin-left:15px;">
+                  <h5 class="card-title"><?= $result2['judul']?></h5>
+                  <div style="margin-right:15px;">
+                  <table class="table">
+                      <tr>
+                          <td><p class="card-text"><small class="text-muted">Id - Nama User</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">:</small></p></td>
+                          <td><p class="card-text"><?= $id_user?> - <?= $result['nama_lengkap']?></p></td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td><p class="card-text"><small class="text-muted">Id Film</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">:</small></p></td>
+                          <td><p class="card-text"><?= $result2['id_film']?></p></td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td><p class="card-text"><small class="text-muted">Tanggal Tayang</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">:</small></p></td>
+                          <td><p class="card-text"><?= $result2['tanggal_tayang']?></p></td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td><p class="card-text"><small class="text-muted">Jam Tayang</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">:</small></p></td>
+                          <td><p class="card-text"><?= $result2['jam_tayang']?></p></td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td><p class="card-text"><small class="text-muted">Durasi</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">:</small></p></td>
+                          <td><p class="card-text"><?= $result2['durasi']?></p></td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td><p class="card-text"><small class="text-muted">Studio</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">:</small></p></td>
+                          <td><p class="card-text"><?= $result2['studio']?></p></td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td><p class="card-text"><small class="text-muted">Harga</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">:</small></p></td>
+                          <td><p class="card-text"><?= $result2['harga']?></p></td>
+                          <td></td>
+                      </tr>
+                  </table>
+                  </div>
+              </div>
+              </div>
+
+          </div>
+          <div class="col-sm-4">
+          <div class="card g-0">
+              <div class="card-body" style="margin-left:15px; margin-right:15px;">
+                  <h5 class="card-title">Saldo Saat Ini:</h5>
+                  <h2 class="border-bottom"><?php echo $result["saldo"] ?></h2>
+                  <div style="margin-top:20px;">
+                  <form method="post">
+                  <button type="submit" name="pesan" class="btn btn-primary">Pesan</button>
+                  <a href="pengisian_saldo.php"><button type="button" class="btn btn-primary">Isi Saldo</button></a>
+                  </form>  
+                </div>
+                </div>
+              </div>
+
+          </div>
+          </div>
 
           </main>
         </div>
