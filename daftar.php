@@ -1,4 +1,34 @@
-<!doctype html>
+<?php
+require "konek.php";
+$find= mysqli_select_db($mysqli, $database);
+
+if(isset($_POST['simpan'])){
+$nama = @$_POST["nama"];
+$alamat = @$_POST["alamat"];
+$nomorhp = @$_POST["nomor"];
+$email = @$_POST["email"];
+$ubah=$_POST['password'];
+$password=md5($ubah);
+
+$eemail = "SELECT email FROM user WHERE email='$email'";
+$execute2 = mysqli_query($mysqli, $eemail);
+$cek_email=mysqli_num_rows($execute2);
+
+if($cek_email ){
+  echo '<script>alert("Email sudah terdaftar")</script>';
+}else{
+    $query="INSERT INTO user (nama_lengkap, alamat, email, nomor_hp, password) VALUES('$nama','$alamat','$email','$nomorhp','$password')";
+    $simpan= mysqli_query($mysqli, $query);
+    if($simpan){
+        echo '<script>alert("Data berhasil disimpan")</script>';
+        header("Location: halaman_login.php");
+    }else{
+        echo '<script>alert("Data gagal disimpan")</script>';
+    }
+}
+}
+?>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -7,7 +37,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   </head>
   <body>
-    <form style="margin-top: 80px;" method=post action=simpanUser.php>
+    <form style="margin-top: 80px;" method=post>
         <h1 class="text-center h3 mb-3 fw-normal">Daftar</h1>
         <div style="margin-top: 30px; margin-left: 250px; margin-right: 250px;">
         <div class="row mb-3">
@@ -40,7 +70,7 @@
             <input type="password" name="password" class="form-control" id="inputPassword3">
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
       </div>
       </form>
 

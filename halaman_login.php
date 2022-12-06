@@ -1,4 +1,36 @@
-<!doctype html>
+<?php
+require "konek.php";
+$find= mysqli_select_db($mysqli, $database);
+
+if(isset($_POST['login'])){
+$email = $_POST['email'];
+$ubah=$_POST['password'];
+$password=md5($ubah);
+ 
+$query = "SELECT * FROM user where email='$email' AND password='$password'";
+$data= mysqli_query($mysqli, $query);
+$result= mysqli_fetch_assoc($data);
+$cek = mysqli_num_rows($data);
+
+$query2 = "SELECT * FROM admin where email='$email' AND password='$password'";
+$data2= mysqli_query($mysqli, $query2);
+$result2= mysqli_fetch_assoc($data2);
+$cek2 = mysqli_num_rows($data2);
+
+if($cek){
+    session_start();
+    $_SESSION["user"] = $result;
+    header("Location: home_user.php");
+}else if($cek2){
+    session_start();
+    $_SESSION["admin"] = $result2;
+    header("Location: home_admin.php");
+}else {
+    echo '<script>alert("Email atau password salah")</script>';
+}
+}
+?>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -9,7 +41,7 @@
   <body class="text-center">
     
     <main class="form-signin w-100 m-auto">
-        <form style="margin-top: 100px;" method="post" action="login.php">
+        <form style="margin-top: 100px;" method="post">
           <h1 class="h3 mb-3 fw-normal">Login</h1>
           <div style="margin-top: 30px; margin-left: 450px; margin-right: 450px;">
           <div class="form-floating">

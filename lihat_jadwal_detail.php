@@ -21,10 +21,15 @@ $execute = mysqli_query($mysqli, $query);
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-nav">
-          <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#"><?php echo  $_SESSION["user"]["nama_lengkap"] ?></a>
-          </div>
+        <div class="btn-group dropstart">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <?php echo  $_SESSION["user"]["nama_lengkap"] ?>
+          </button>
+          <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="profil.php">Profil</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+          </ul>
         </div>
       </header>
       
@@ -57,18 +62,7 @@ $execute = mysqli_query($mysqli, $query);
                     Riwayat Transaksi
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="profil.php">
-                    <span data-feather="bar-chart-2" class="align-text-bottom"></span>
-                    Profil
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="logout.php">
-                    <span data-feather="layers" class="align-text-bottom"></span>
-                    Logout
-                  </a>
-                </li>
+                
               </ul>
       
             </div>

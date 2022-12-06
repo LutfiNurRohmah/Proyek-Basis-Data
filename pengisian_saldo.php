@@ -11,7 +11,7 @@ $execute2 = mysqli_query($mysqli, $query2);
 if(isset($_POST['tombol']))
 {
     if(!isset($_FILES['bukti_transaksi']['tmp_name'])){
-        echo '<span style="color:red"><b><u><i>Pilih file gambar</i></u></b></span>';
+      echo '<script>alert("Pilih File Gambar")</script>';
     }
     else
     {
@@ -29,11 +29,11 @@ if(isset($_POST['tombol']))
             if($simpan){
               header("Location:pengisian_saldo.php");
             }else{
-              echo "Data gagal disimpan";}
+              echo '<script>alert("Data gagal disimpan")</script>';}
         }
         else
         {
-            echo '<span style="color:red"><b><u><i>Ukuruan File / Tipe File Tidak Sesuai</i></u></b></span>';
+          echo '<script>alert("Ukuran atau tipe file tidak sesuai")</script>';
         }
     }
 }
@@ -53,10 +53,15 @@ if(isset($_POST['tombol']))
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-nav">
-          <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#"><?php echo $_SESSION["user"]['nama_lengkap'];?></a>
-          </div>
+        <div class="btn-group dropstart">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <?php echo  $_SESSION["user"]["nama_lengkap"] ?>
+          </button>
+          <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="profil.php">Profil</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+          </ul>
         </div>
       </header>
       
@@ -89,18 +94,7 @@ if(isset($_POST['tombol']))
                     Riwayat Transaksi
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="profil.php">
-                    <span data-feather="bar-chart-2" class="align-text-bottom"></span>
-                    Profil
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="logout.php">
-                    <span data-feather="layers" class="align-text-bottom"></span>
-                    Logout
-                  </a>
-                </li>
+                
               </ul>
       
             </div>
@@ -165,7 +159,6 @@ if(isset($_POST['tombol']))
 				 <td><?= $result['waktu_transaksi']?></td>
 				 <td><?= $result['status']?></td>
          <td  align=center>
-          <a href="update.php?Nama=<?= $result[0]?>""><button type="button" class="btn btn-primary">Edit</button></a>
           <a href="deleteIsiSaldo.php?IdIsiSaldo=<?= $result['id_isisaldo']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
 				 </td>
 				</tr>

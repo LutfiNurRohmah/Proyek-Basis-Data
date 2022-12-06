@@ -9,6 +9,6 @@ if($execute){
 	header("Location:kelola_transaksi_tiket.php");
 }
 else{
-	echo "GAGAL MENGHAPUS";
+	echo '<script>alert("Gagal Menghapus")</script>';
 }
 ?>

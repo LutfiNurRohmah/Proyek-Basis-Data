@@ -8,7 +8,7 @@ $execute = mysqli_query($mysqli, $query);
 if(isset($_POST['tombol']))
 {
     if(!isset($_FILES['gambar']['tmp_name'])){
-        echo '<span style="color:red"><b><u><i>Pilih file gambar</i></u></b></span>';
+      echo '<script>alert("Pilih File Gambar")</script>';
     }
     else
     {
@@ -34,11 +34,11 @@ if(isset($_POST['tombol']))
             if($simpan){
               header("Location:kelola_film.php");
             }else{
-              echo "Data gagal disimpan";}
+              echo '<script>alert("Data gagal disimpan")</script>';}
         }
         else
         {
-            echo '<span style="color:red"><b><u><i>Ukuruan File / Tipe File Tidak Sesuai</i></u></b></span>';
+          echo '<script>alert("Ukuran atau tipe file tidak sesuai")</script>';
         }
     }
 }
@@ -58,10 +58,15 @@ if(isset($_POST['tombol']))
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-nav">
-          <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#">Admin</a>
-          </div>
+        <div class="btn-group dropstart">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <?php echo  $_SESSION["admin"]["nama_admin"] ?>
+          </button>
+          <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="kelola_admin.php">Kelola Admin</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="logout_admin.php">Logout</a></li>
+          </ul>
         </div>
       </header>
       
@@ -98,12 +103,6 @@ if(isset($_POST['tombol']))
                   <a class="nav-link" href="kelola_transaksi_tiket.php">
                     <span data-feather="bar-chart-2" class="align-text-bottom"></span>
                     Kelola Transaksi Tiket
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="logout_admin.php">
-                    <span data-feather="layers" class="align-text-bottom"></span>
-                    Logout
                   </a>
                 </li>
               </ul>

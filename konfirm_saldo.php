@@ -27,7 +27,7 @@ if(isset($_POST['terima']) and $result['status']=='Pending'){
     if($tambahSaldo and $ubahStatus){
     header('Location:kelola_user.php');
     }else{
-    echo "GAGAL UPDATE DATA";
+      echo '<script>alert("Gagal Update Data")</script>';
     }
 }
 if(isset($_POST['tolak']) and $result['status']=='Pending'){
@@ -40,12 +40,11 @@ if(isset($_POST['tolak']) and $result['status']=='Pending'){
     if($ubahStatus){
     header('Location:kelola_user.php');
     }else{
-    echo "GAGAL UPDATE DATA";
+      echo '<script>alert("Gagal Update Data")</script>';
     }
 }
 ?>
 
-<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -59,10 +58,15 @@ if(isset($_POST['tolak']) and $result['status']=='Pending'){
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-nav">
-          <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#">Admin</a>
-          </div>
+        <div class="btn-group dropstart">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <?php echo  $_SESSION["admin"]["nama_admin"] ?>
+          </button>
+          <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="kelola_admin.php">Kelola Admin</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="logout_admin.php">Logout</a></li>
+          </ul>
         </div>
     </header>
       
@@ -99,12 +103,6 @@ if(isset($_POST['tolak']) and $result['status']=='Pending'){
                   <a class="nav-link" href="kelola_transaksi_tiket.php">
                     <span data-feather="bar-chart-2" class="align-text-bottom"></span>
                     Kelola Transaksi Tiket
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="logout_admin.php">
-                    <span data-feather="layers" class="align-text-bottom"></span>
-                    Logout
                   </a>
                 </li>
               </ul>

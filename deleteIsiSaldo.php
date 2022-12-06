@@ -9,6 +9,6 @@ if($execute){
 	header("Location:pengisian_saldo.php");
 }
 else{
-	echo "GAGAL MENGHAPUS";
+	echo '<script>alert("Gagal Menghapus")</script>';
 }
 ?>

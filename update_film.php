@@ -2,46 +2,6 @@
 require "konek.php";
 require_once("auth_admin.php");
 $find= mysqli_select_db($mysqli, $database);
-// $query="SELECT * FROM film";
-// $execute = mysqli_query($mysqli, $query);
-
-// if(isset($_POST['tombol']))
-// {
-//     if(!isset($_FILES['gambar']['tmp_name'])){
-//         echo '<span style="color:red"><b><u><i>Pilih file gambar</i></u></b></span>';
-//     }
-//     else
-//     {
-//         $file_name = $_FILES['gambar']['name'];
-//         $file_size = $_FILES['gambar']['size'];
-//         $file_type = $_FILES['gambar']['type'];
-//         if ($file_size < 2048000 and ($file_type =='image/jpeg' or $file_type == 'image/png'))
-//         {
-//             $image   = addslashes(file_get_contents($_FILES['gambar']['tmp_name']));
-//             $judul = @$_POST["judul"];
-//             $genre = @$_POST["genre"];
-//             $durasi = @$_POST["durasi"];
-//             $sinopsis = @$_POST["sinopsis"];
-//             $tanggal_rilis = @$_POST["tanggal_rilis"];
-//             $produser = @$_POST["produser"];
-//             $sutradara = @$_POST["sutradara"];
-//             $penulis = @$_POST["penulis"];
-//             $produksi = @$_POST["produksi"];
-
-//             $query="INSERT INTO film (judul, genre, gambar, durasi, sinopsis, tanggal_rilis, produser, penulis, sutradara, produksi) VALUES('$judul','$genre','$image','$durasi','$sinopsis', '$tanggal_rilis', '$produser', '$penulis', '$sutradara', '$produksi')";
-//             $simpan= mysqli_query($mysqli, $query);
-
-//             if($simpan){
-//               header("Location:kelola_film.php");
-//             }else{
-//               echo "Data gagal disimpan";}
-//         }
-//         else
-//         {
-//             echo '<span style="color:red"><b><u><i>Ukuruan File / Tipe File Tidak Sesuai</i></u></b></span>';
-//         }
-//     }
-// }
 
 $id_film = $_GET['IdFilm'];
 $sql_read = "SELECT * FROM film WHERE id_film='$id_film'";
@@ -84,10 +44,15 @@ if(isset($_POST['update'])){
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-nav">
-          <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#">Admin</a>
-          </div>
+        <div class="btn-group dropstart">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <?php echo  $_SESSION["admin"]["nama_admin"] ?>
+          </button>
+          <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="kelola_admin.php">Kelola Admin</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="logout_admin.php">Logout</a></li>
+          </ul>
         </div>
       </header>
       
@@ -124,12 +89,6 @@ if(isset($_POST['update'])){
                   <a class="nav-link" href="kelola_transaksi_tiket.php">
                     <span data-feather="bar-chart-2" class="align-text-bottom"></span>
                     Kelola Transaksi Tiket
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="logout_admin.php">
-                    <span data-feather="layers" class="align-text-bottom"></span>
-                    Logout
                   </a>
                 </li>
               </ul>
