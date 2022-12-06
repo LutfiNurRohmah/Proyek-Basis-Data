@@ -1,5 +1,6 @@
 <?php
 require "konek.php";
+require_once("auth_admin.php");
 $find= mysqli_select_db($mysqli, $database);
 
 $judul = @$_POST["judul"];

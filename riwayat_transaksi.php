@@ -88,8 +88,6 @@ $execute = mysqli_query($mysqli, $query);
 				 <td><?= $result['waktu_transaksi']?></td>
          <td align=center>
             <a href="detail_riwayat.php?KodeTiket=<?= $result['kode_tiket']?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>
-            <a href="deleteTransaksi.php?KodeTiket=<?= $result['kode_tiket']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
-				 </td>
 				</tr>
 				<?php }?>
 			</table>

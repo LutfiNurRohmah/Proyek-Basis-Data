@@ -115,73 +115,82 @@ if(isset($_POST['tombol']))
             </div>
 
     <!-- input film -->
-    <form method=post action="" enctype="multipart/form-data">
-        <h6 class="h6">Tambah Film</h6>
-            <div class="row mb-3">
-            <label for="inputJudul" class="col-sm-2 col-form-label">Judul</label>
-            <div class="col-sm-10">
-              <input type="text" name="judul" class="form-control" id="inputJudul" placeholder="">
-            </div>
-        </div>
+    <p>
+      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Tambah Film
+      </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+      <form method=post action="" enctype="multipart/form-data">
+        
         <div class="row mb-3">
-            <label for="inputGenre" class="col-sm-2 col-form-label">Genre</label>
-            <div class="col-sm-10">
-              <input type="text" name="genre" class="form-control" id="inputGenre" placeholder="">
-            </div>
+        <label for="inputJudul" class="col-sm-2 col-form-label">Judul</label>
+        <div class="col-sm-10">
+          <input type="text" name="judul" class="form-control" id="inputJudul" placeholder="">
         </div>
-        <div class="row mb-3">
-            <label for="inputDurasi" class="col-sm-2 col-form-label">Durasi</label>
-            <div class="col-sm-10">
-              <input type="text" name="durasi" class="form-control" id="inputDurasi" placeholder="">
-            </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputGenre" class="col-sm-2 col-form-label">Genre</label>
+        <div class="col-sm-10">
+          <input type="text" name="genre" class="form-control" id="inputGenre" placeholder="">
         </div>
-        <div class="row mb-3">
-            <label for="inputGenre" class="col-sm-2 col-form-label">Sinopsis</label>
-            <div class="col-sm-10">
-              <input type="text" name="sinopsis" class="form-control" id="inputGenre" placeholder="">
-            </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputDurasi" class="col-sm-2 col-form-label">Durasi</label>
+        <div class="col-sm-10">
+          <input type="text" name="durasi" class="form-control" id="inputDurasi" placeholder="">
         </div>
-        <div class="row mb-3">
-            <label for="inputDurasi" class="col-sm-2 col-form-label">Tanggal Rilis</label>
-            <div class="col-sm-10">
-              <input type="date" name="tanggal_rilis" class="form-control" id="inputDurasi" placeholder="">
-            </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputGenre" class="col-sm-2 col-form-label">Sinopsis</label>
+        <div class="col-sm-10">
+          <input type="text" name="sinopsis" class="form-control" id="inputGenre" placeholder="">
         </div>
-        <div class="row mb-3">
-            <label for="inputGenre" class="col-sm-2 col-form-label">Produser</label>
-            <div class="col-sm-10">
-              <input type="text" name="produser" class="form-control" id="inputGenre" placeholder="">
-            </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputDurasi" class="col-sm-2 col-form-label">Tanggal Rilis</label>
+        <div class="col-sm-10">
+          <input type="date" name="tanggal_rilis" class="form-control" id="inputDurasi" placeholder="">
         </div>
-        <div class="row mb-3">
-            <label for="inputDurasi" class="col-sm-2 col-form-label">Sutradara</label>
-            <div class="col-sm-10">
-              <input type="text" name="sutradara" class="form-control" id="inputDurasi" placeholder="">
-            </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputGenre" class="col-sm-2 col-form-label">Produser</label>
+        <div class="col-sm-10">
+          <input type="text" name="produser" class="form-control" id="inputGenre" placeholder="">
         </div>
-        <div class="row mb-3">
-            <label for="inputGenre" class="col-sm-2 col-form-label">Penulis</label>
-            <div class="col-sm-10">
-              <input type="text" name="penulis" class="form-control" id="inputGenre" placeholder="">
-            </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputDurasi" class="col-sm-2 col-form-label">Sutradara</label>
+        <div class="col-sm-10">
+          <input type="text" name="sutradara" class="form-control" id="inputDurasi" placeholder="">
         </div>
-        <div class="row mb-3">
-            <label for="inputDurasi" class="col-sm-2 col-form-label">Produksi</label>
-            <div class="col-sm-10">
-              <input type="text" name="produksi" class="form-control" id="inputDurasi" placeholder="">
-            </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputGenre" class="col-sm-2 col-form-label">Penulis</label>
+        <div class="col-sm-10">
+          <input type="text" name="penulis" class="form-control" id="inputGenre" placeholder="">
         </div>
-        <div class="row mb-3">
-            <label for="inputGroupFile" class="col-sm-2 col-form-label">Gambar</label>
-            <div class="col-sm-10">
-              <input type="file" name="gambar" class="form-control" id="inputGroupFile02">
-            </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputDurasi" class="col-sm-2 col-form-label">Produksi</label>
+        <div class="col-sm-10">
+          <input type="text" name="produksi" class="form-control" id="inputDurasi" placeholder="">
         </div>
-        <button type="submit" class="btn btn-primary" name="tombol">Simpan</button>
-    </form>
+    </div>
+    <div class="row mb-3">
+        <label for="inputGroupFile" class="col-sm-2 col-form-label">Gambar</label>
+        <div class="col-sm-10">
+          <input type="file" name="gambar" class="form-control" id="inputGroupFile02">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" name="tombol">Simpan</button>
+</form>      </div>
+    </div>
+    
 
     <!-- list film -->
-    <div class="border-top" style="margin-top:40px;">
+    <div class="border-top" style="margin-top:20px;">
       <h6 class="h6" style="margin-top:15px;">List Film</h6>
       </div>
       

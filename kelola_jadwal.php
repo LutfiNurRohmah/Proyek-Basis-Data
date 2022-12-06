@@ -78,8 +78,15 @@ $execute2= mysqli_query($mysqli, $query2);
               <h3 class="h5">Kelola Jadwal Tayang</h3>
             </div>
 
-            <!-- input film -->
-    <form method=post action=simpanJadwal.php>
+            <!-- input jadwal -->
+            <p>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              Tambah Jadwal
+            </button>
+          </p>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+            <form method=post action=simpanJadwal.php>
       <h6 class="h6">Tambah Jadwal</h6>
         <div class="row mb-3">
           <label for="inputIDFilm" class="col-sm-2 col-form-label">Film</label>
@@ -123,10 +130,12 @@ $execute2= mysqli_query($mysqli, $query2);
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Simpan</button>
-</form>
+</form>            </div>
+          </div>
+    
 
         <!-- list jadwal -->
-    <div class="border-top" style="margin-top:40px;">
+    <div class="border-top" style="margin-top:20px;">
       <h6 class="h6" style="margin-top:15px;">List Jadwal Tayang</h6>
       </div>
       

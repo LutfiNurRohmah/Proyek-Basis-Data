@@ -2,12 +2,12 @@
 require "konek.php";
 require_once("auth_admin.php");
 
-$kode_tiket = $_GET['KodeTiket'];
-$sql = "DELETE FROM transaksi_tiket WHERE kode_tiket='$kode_tiket'";
+$id_admin = $_GET['IdAdmin'];
+$sql = "DELETE FROM admin WHERE id_admin='$id_admin'";
 $execute= mysqli_query($mysqli, $sql);
 
 if($execute){
-	header("Location:kelola_transaksi_tiket.php");
+	header("Location:kelola_admin.php");
 }
 else{
 	echo '<script>alert("Gagal Menghapus")</script>';
