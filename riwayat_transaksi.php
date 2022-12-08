@@ -3,7 +3,7 @@ require "konek.php";
 require_once("auth.php");
 $find= mysqli_select_db($mysqli, $database);
 $id_user = $_SESSION["user"]['id_user'];
-$query="SELECT * FROM transaksi_tiket WHERE id_user=$id_user";
+$query="SELECT * FROM transaksi_tiket WHERE id_user=$id_user ORDER BY waktu_transaksi DESC";
 $execute = mysqli_query($mysqli, $query);
 ?>
 

@@ -78,6 +78,13 @@ $execute2 = mysqli_query($mysqli, $query2);
               <h3 class="h5">Kelola User</h3>
             </div>
 
+            <p>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              List User
+            </button>
+          </p>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
             
               <h6 class="h6">List User</h6>
 
@@ -104,8 +111,10 @@ $execute2 = mysqli_query($mysqli, $query2);
 				</tr>
 				<?php }?>
 			</table>
+        </div>
+        </div>
 
-      <div class="border-top" style="margin-top:40px;">
+      <div class="border-top" style="margin-top:20px;">
       <h6 class="h6" style="margin-top:15px;">List Pengisian Saldo</h6>
       </div>
       
