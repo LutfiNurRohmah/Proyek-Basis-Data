@@ -132,6 +132,12 @@ $execute = mysqli_query($mysqli, $query);
                             <td></td>
                         </tr>
                         <tr>
+                            <td><p class="card-text"><small class="text-muted">Sisa Kursi</small></p></td>
+                            <td><p class="card-text"><small class="text-muted">:</small></p></td>
+                            <td><p class="card-text"><?= $result['sisa_kursi']?></p></td>
+                            <td></td>
+                        </tr>
+                        <tr>
                             <td><p class="card-text"><small class="text-muted">Harga</small></p></td>
                             <td><p class="card-text"><small class="text-muted">:</small></p></td>
                             <td><p class="card-text"><?= $result['harga']?></p></td>

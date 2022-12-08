@@ -3,7 +3,7 @@ require_once("auth_admin.php");
 require "konek.php";
 $find= mysqli_select_db($mysqli, $database);
 $query="SELECT * FROM user";
-$query2="SELECT * FROM pengisian_saldo";
+$query2="SELECT * FROM pengisian_saldo ORDER BY id_isisaldo DESC";
 $execute = mysqli_query($mysqli, $query);
 $execute2 = mysqli_query($mysqli, $query2);
 ?>

@@ -141,23 +141,25 @@ $execute2= mysqli_query($mysqli, $query2);
       
       <table class="table table-bordered" style="margin-bottom:40px;">
 				<thead class="table-primary">
-				 <td align=center>Id Jadwal</td>
+				 <!-- <td align=center>Id Jadwal</td> -->
 				 <td align=center>Judul</td>
 				 <td align=center>Tanggal Tayang</td>
 				 <td align=center>Jam Tayang</td>
          <td align=center>Studio</td>
          <td align=center>Jumlah Kursi</td>
+         <td align=center>Sisa Kursi</td>
          <td align=center>Harga</td>
          <td align=center>Pilihan Menu</td>
 				</thead>
 				<?php while($result = mysqli_fetch_assoc($execute)){ ?>
 				<tr>
-				 <td><?= $result['id_jadwal']?></td>
+				 <!-- <td><?= $result['id_jadwal']?></td> -->
          <td><?= $result['judul']?></td>
 				 <td><?= $result['tanggal_tayang']?></td>
 				 <td><?= $result['jam_tayang']?></td>
 				 <td><?= $result['studio']?></td>
 				 <td><?= $result['total_kursi']?></td>
+         <td><?= $result['sisa_kursi']?></td>
          <td><?= $result['harga']?></td>
          <td align=center>
             <a href="detail_jadwal.php?IdJadwal=<?= $result['id_jadwal']?>""><button type="button" class="btn btn-primary">Lihat Detail</button></a>

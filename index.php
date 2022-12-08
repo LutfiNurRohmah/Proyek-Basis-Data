@@ -26,7 +26,7 @@
         </div>
       </header>
       <main>
-    <div class="container-fluid">
+    <!-- <div class="container-fluid">
       <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -65,7 +65,7 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
-</div>
+</div> -->
 </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     

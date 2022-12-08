@@ -5,7 +5,7 @@ $find= mysqli_select_db($mysqli, $database);
 $id_user = $_SESSION["user"]['id_user'];
 $query = "SELECT saldo FROM user WHERE id_user='$id_user'";
 $saldo = mysqli_fetch_assoc(mysqli_query($mysqli, $query));
-$query2="SELECT * FROM pengisian_saldo WHERE id_user=$id_user";
+$query2="SELECT * FROM pengisian_saldo WHERE id_user='$id_user'";
 $execute2 = mysqli_query($mysqli, $query2);
 
 if(isset($_POST['tombol']))

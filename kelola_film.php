@@ -193,7 +193,7 @@ if(isset($_POST['tombol']))
     <div class="border-top" style="margin-top:20px;">
       <h6 class="h6" style="margin-top:15px;">List Film</h6>
       </div>
-      
+
       <table class="table table-bordered" style="margin-bottom:40px;">
 				<thead class="table-primary">
 				 <td align=center>Id Film</td>
