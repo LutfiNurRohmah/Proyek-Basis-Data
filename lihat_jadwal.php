@@ -2,8 +2,25 @@
 require_once("auth.php");
 require "konek.php";
 $find= mysqli_select_db($mysqli, $database);
-$query="SELECT * FROM jadwal INNER JOIN film USING (id_film)";
-$execute = mysqli_query($mysqli, $query);
+
+if(isset($_POST['search'])){
+  if($_POST['kolom'] != "kosong"){
+		$kolom=$_POST['kolom'];
+		$cari=$_POST['cari'];
+			 
+		$execute=mysqli_query($mysqli, "SELECT * FROM jadwal INNER JOIN film USING (id_film) WHERE $kolom LIKE '%$cari%' ORDER BY tanggal_tayang");
+  
+  }else{
+    echo '<script>alert("Masukkan Pilihan Dulu")</script>';
+    $query="SELECT * FROM jadwal INNER JOIN film USING (id_film) ORDER BY tanggal_tayang";
+    $execute = mysqli_query($mysqli, $query);
+  }
+
+}else{
+  $query="SELECT * FROM jadwal INNER JOIN film USING (id_film) ORDER BY tanggal_tayang";
+  $execute = mysqli_query($mysqli, $query);
+}
+
 ?>
 
 <!doctype html>
@@ -73,6 +90,25 @@ $execute = mysqli_query($mysqli, $query);
             <div>
               <h6 class="h6" style="margin-top:15px;">List Jadwal Tayang</h6>
             </div>
+
+            <form method="post">
+              <div class="row">
+              <div class="col-md-3">
+              <select type="text" name="kolom" class="form-select form-control" aria-label="Default select example">
+                <option selected value="kosong">Cari Berdasarkan</option>
+                <option value="judul">Judul</option>
+                <option value="genre">Genre</option>
+                <option value="hari">Hari Tayang</option>
+              </select>
+              </div>
+              <div class="col-md-8">
+              Masukkan Kata yang Anda Cari
+              <input type ="text" type ="text" name="cari">
+              <button type="submit" name="search" class="btn btn-primary" value="Cari">Cari</button>
+              </div>
+              </div>
+            </form>
+
 
         <?php while($result = mysqli_fetch_assoc($execute)){ ?>
 
