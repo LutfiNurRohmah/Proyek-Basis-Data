@@ -7,9 +7,24 @@ if(isset($_POST['search'])){
   if($_POST['kolom'] != "kosong"){
 		$kolom=$_POST['kolom'];
 		$cari=$_POST['cari'];
-			 
-		$execute=mysqli_query($mysqli, "SELECT * FROM jadwal INNER JOIN film USING (id_film) WHERE $kolom LIKE '%$cari%' ORDER BY tanggal_tayang");
-  
+
+    if($_POST['kolom'] == "hari"){
+      $day = strtolower($_POST['cari']);
+      $dayList = array(
+          'minggu' => 'Sunday',
+          'senin' => 'Monday',
+          'selasa' => 'Tuesday',
+          'rabu' => 'Wednesday',
+          'kamis' => 'Thursday',
+          'jumat' => 'Friday',
+          'sabtu' => 'Saturday'
+        );
+      $execute=mysqli_query($mysqli, "SELECT * FROM jadwal INNER JOIN film USING (id_film) WHERE DAYNAME(tanggal_tayang) LIKE '%$dayList[$day]%' ORDER BY tanggal_tayang");
+
+    }else{
+      $execute=mysqli_query($mysqli, "SELECT * FROM jadwal INNER JOIN film USING (id_film) WHERE $kolom LIKE '%$cari%' ORDER BY tanggal_tayang");
+
+    }  
   }else{
     echo '<script>alert("Masukkan Pilihan Dulu")</script>';
     $query="SELECT * FROM jadwal INNER JOIN film USING (id_film) ORDER BY tanggal_tayang";
@@ -19,6 +34,20 @@ if(isset($_POST['search'])){
 }else{
   $query="SELECT * FROM jadwal INNER JOIN film USING (id_film) ORDER BY tanggal_tayang";
   $execute = mysqli_query($mysqli, $query);
+}
+
+function hari($date){
+  $day = date('D', strtotime($date));
+  $dayList = array(
+    'Sun' => 'Minggu',
+    'Mon' => 'Senin',
+    'Tue' => 'Selasa',
+    'Wed' => 'Rabu',
+    'Thu' => 'Kamis',
+    'Fri' => 'Jumat',
+    'Sat' => 'Sabtu'
+  );
+ return $dayList[$day];
 }
 
 ?>
@@ -123,9 +152,9 @@ if(isset($_POST['search'])){
                   <div style="margin-right:20px;">
                   <table class="table">
                       <tr>
-                          <td><p class="card-text"><small class="text-muted">Tanggal Tayang</small></p></td>
+                          <td><p class="card-text"><small class="text-muted">Hari, Tanggal Tayang</small></p></td>
                           <td><p class="card-text"><small class="text-muted">:</small></p></td>
-                          <td><p class="card-text"><?= $result['tanggal_tayang']?></p></td>
+                          <td><p class="card-text"><?= hari($result['tanggal_tayang'])?>, <?= date('d-m-Y', strtotime($result['tanggal_tayang'])) ?></p></td>
                           <td></td>
                       </tr>
                       <tr>

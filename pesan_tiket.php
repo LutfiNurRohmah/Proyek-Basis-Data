@@ -128,7 +128,7 @@ if(isset($_POST['pesan'])){
                       <tr>
                           <td><p class="card-text"><small class="text-muted">Tanggal Tayang</small></p></td>
                           <td><p class="card-text"><small class="text-muted">:</small></p></td>
-                          <td><p class="card-text"><?= $result2['tanggal_tayang']?></p></td>
+                          <td><p class="card-text"><?= date('d-m-Y', strtotime($result2['tanggal_tayang']))?></p></td>
                           <td></td>
                       </tr>
                       <tr>

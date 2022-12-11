@@ -1,4 +1,15 @@
-<?php require_once("auth_admin.php"); ?>
+<?php 
+require "konek.php";
+require_once("auth_admin.php");
+$find= mysqli_select_db($mysqli, $database);
+
+$query="SELECT * FROM film WHERE id_film NOT IN (SELECT id_film FROM jadwal)";
+$execute = mysqli_query($mysqli, $query);
+
+$bulanini = date('m');
+$query2="SELECT * FROM film WHERE id_film IN (SELECT id_film FROM jadwal WHERE MONTH(tanggal_tayang) LIKE '$bulanini')";
+$execute2 = mysqli_query($mysqli, $query2);
+?>
 
 <!doctype html>
 <html lang="en">
@@ -68,6 +79,45 @@
           <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
               <h3 class="h5">Dashboard - Admin</h3>
+            </div>
+            <div class="card" style="margin-top:20px;">
+              <div class="card-body">
+                <h1 class="text-primary" align="center">Welcome to OurCinema</h1>
+              </div>
+            </div>
+            <div class="card" style="margin-top:20px;">
+              <div class="card-body">
+                <h5 class="card-title">Tayang Segera</h5>
+                <div class="container px-4 text-center">
+                  <div class="row gy-5">
+                    <?php while($result = mysqli_fetch_assoc($execute)){ ?>
+                      <div class="col-2">
+                        <div class="p-3">
+                          <a href="detail_film.php?IdFilm=<?= $result['id_film']?>"><img src="image_film.php?IdFilm=<?php echo $result['id_film']; ?>" class="img-fluid rounded-start" alt="..."></a>
+                          <p class="card-text"><small class="text-muted"><?php echo $result['judul']?></small></p>
+                        </div>
+                      </div>
+                    <?php }?>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card" style="margin-top:20px;">
+              <div class="card-body">
+                <h5 class="card-title">Tayang Bulan Ini</h5>
+                <div class="container px-4 text-center">
+                  <div class="row gy-5">
+                    <?php while($result2 = mysqli_fetch_assoc($execute2)){ ?>
+                      <div class="col-2">
+                        <div class="p-3">
+                          <a href="detail_film.php?IdFilm=<?= $result2['id_film']?>"><img src="image_film.php?IdFilm=<?php echo $result2['id_film']; ?>" class="img-fluid rounded-start" alt="..."></a>
+                          <p class="card-text"><small class="text-muted"><?php echo $result2['judul']?></small></p>
+                        </div>
+                      </div>
+                    <?php }?>
+                  </div>
+                </div>
+              </div>
             </div>
           </main>
         </div>

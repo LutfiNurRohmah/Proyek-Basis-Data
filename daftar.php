@@ -14,7 +14,7 @@ $eemail = "SELECT email FROM user WHERE email='$email'";
 $execute2 = mysqli_query($mysqli, $eemail);
 $cek_email=mysqli_num_rows($execute2);
 
-if($cek_email ){
+if($cek_email){
   echo '<script>alert("Email sudah terdaftar")</script>';
 }else{
     $query="INSERT INTO user (nama_lengkap, alamat, email, nomor_hp, password) VALUES('$nama','$alamat','$email','$nomorhp','$password')";
@@ -36,10 +36,12 @@ if($cek_email ){
     <title>Daftar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   </head>
-  <body>
-    <form style="margin-top: 80px;" method=post>
+  <body class="bg-light">
+    <div class="card" style="margin:80px 220px 20px 220px;">
+    <div class="card-body">
+    <form method=post>
         <h1 class="text-center h3 mb-3 fw-normal">Daftar</h1>
-        <div style="margin-top: 30px; margin-left: 250px; margin-right: 250px;">
+        <div style="margin-top: 30px;">
         <div class="row mb-3">
             <label for="inputName" class="col-sm-2 col-form-label">Nama Lengkap</label>
             <div class="col-sm-10">
@@ -71,8 +73,11 @@ if($cek_email ){
           </div>
         </div>
         <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
+        <p class="mb-3 fw-normal" style="margin-top:10px;">Sudah punya akun? <a href="halaman_login.php">Login</a></p>
       </div>
       </form>
+      </div>
+      </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
   </body>

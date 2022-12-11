@@ -77,19 +77,21 @@ $execute = mysqli_query($mysqli, $query);
 
 				<?php while($result = mysqli_fetch_assoc($execute)){ ?>
 
-        <div class="card" style="max-width: 600px;">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img src="image_film.php?IdFilm=<?php echo $result['id_film']; ?>" class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h3 class="card-title"><?= $result['judul']?></h3>
-                <p class="card-text"><?= $result['sinopsis']?></p>
-                <p class="card-text"><small class="text-muted">Genre : </small><?= $result['genre']?></p>
-                <p class="card-text"><small class="text-muted">Durasi: </small><?= $result['durasi']?></p>
-                <a href="update_film.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Edit</button></a>
-                <a href="deleteFilm.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
+        <div class="col-sm-8">
+          <div class="card">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="image_film.php?IdFilm=<?php echo $result['id_film']; ?>" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h3 class="card-title"><?= $result['judul']?></h3>
+                  <p class="card-text"><?= $result['sinopsis']?></p>
+                  <p class="card-text"><small class="text-muted">Genre : </small><?= $result['genre']?></p>
+                  <p class="card-text"><small class="text-muted">Durasi: </small><?= $result['durasi']?></p>
+                  <a href="update_film.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Edit</button></a>
+                  <a href="deleteFilm.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Hapus</button></a>
+                </div>
               </div>
             </div>
           </div>
