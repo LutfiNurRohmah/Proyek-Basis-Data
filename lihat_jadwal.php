@@ -19,20 +19,28 @@ if(isset($_POST['search'])){
           'jumat' => 'Friday',
           'sabtu' => 'Saturday'
         );
-      $execute=mysqli_query($mysqli, "SELECT * FROM jadwal INNER JOIN film USING (id_film) WHERE DAYNAME(tanggal_tayang) LIKE '%$dayList[$day]%' ORDER BY tanggal_tayang");
+      $query = "SELECT * FROM jadwal INNER JOIN film USING (id_film) 
+                WHERE DAYNAME(tanggal_tayang) LIKE '%$dayList[$day]%' 
+                ORDER BY tanggal_tayang";
+      $execute=mysqli_query($mysqli, query);
 
     }else{
-      $execute=mysqli_query($mysqli, "SELECT * FROM jadwal INNER JOIN film USING (id_film) WHERE $kolom LIKE '%$cari%' ORDER BY tanggal_tayang");
+      $query = "SELECT * FROM jadwal INNER JOIN film USING (id_film) 
+                WHERE $kolom LIKE '%$cari%' 
+                ORDER BY tanggal_tayang";
+      $execute=mysqli_query($mysqli, $query);
 
     }  
   }else{
     echo '<script>alert("Masukkan Pilihan Dulu")</script>';
-    $query="SELECT * FROM jadwal INNER JOIN film USING (id_film) ORDER BY tanggal_tayang";
+    $query="SELECT * FROM jadwal INNER JOIN film USING (id_film) 
+            ORDER BY tanggal_tayang";
     $execute = mysqli_query($mysqli, $query);
   }
 
 }else{
-  $query="SELECT * FROM jadwal INNER JOIN film USING (id_film) ORDER BY tanggal_tayang";
+  $query="SELECT * FROM jadwal INNER JOIN film USING (id_film) 
+          ORDER BY tanggal_tayang";
   $execute = mysqli_query($mysqli, $query);
 }
 

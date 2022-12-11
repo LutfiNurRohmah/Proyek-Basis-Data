@@ -4,7 +4,8 @@ require "konek.php";
 $find= mysqli_select_db($mysqli, $database);
 $id_isisaldo=$_GET['IdSaldo'];
 
-$query2="SELECT * FROM user INNER JOIN pengisian_saldo USING (id_user) WHERE id_isisaldo='$id_isisaldo'";
+$query2 = "SELECT * FROM user INNER JOIN pengisian_saldo USING (id_user) 
+           WHERE id_isisaldo='$id_isisaldo'";
 $execute2 = mysqli_query($mysqli, $query2);
 
 $query = "SELECT * FROM pengisian_saldo WHERE id_isisaldo='$id_isisaldo'";
@@ -18,10 +19,12 @@ if(isset($_POST['terima']) and $result['status']=='Pending'){
     $id_user = $result['id_user'];
     $id_isisaldo = $result['id_isisaldo'];
 
-    $sql = "UPDATE user SET saldo='$jumlah_saldo' WHERE id_user='$id_user'";
+    $sql = "UPDATE user SET saldo='$jumlah_saldo' 
+            WHERE id_user='$id_user'";
     $tambahSaldo = mysqli_query($mysqli, $sql);
 
-    $sql2 = "UPDATE pengisian_saldo SET status='$status' WHERE id_isisaldo='$id_isisaldo'";
+    $sql2 = "UPDATE pengisian_saldo SET status='$status' 
+             WHERE id_isisaldo='$id_isisaldo'";
     $ubahStatus = mysqli_query($mysqli, $sql2);
 
     if($tambahSaldo and $ubahStatus){

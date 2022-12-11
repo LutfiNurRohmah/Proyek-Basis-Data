@@ -19,7 +19,16 @@ if(isset($_POST['update'])){
             $penulis = @$_POST["penulis"];
             $produksi = @$_POST["produksi"];
 	
-	$sql = "UPDATE film SET judul='$judul', genre='$genre', durasi='$durasi', sinopsis='$sinopsis', tanggal_rilis='$tanggal_rilis', produser='$produser', sutradara='$sutradara', penulis='$penulis', produksi='$produksi' WHERE id_film='$id_film'";
+	$sql = "UPDATE film SET judul='$judul', 
+                          genre='$genre', 
+                          durasi='$durasi',
+                          sinopsis='$sinopsis', 
+                          tanggal_rilis='$tanggal_rilis', 
+                          produser='$produser', 
+                          sutradara='$sutradara', 
+                          penulis='$penulis', 
+                          produksi='$produksi' 
+          WHERE id_film='$id_film'";
 	$execute = mysqli_query($mysqli, $sql);
 	
 	if($execute){

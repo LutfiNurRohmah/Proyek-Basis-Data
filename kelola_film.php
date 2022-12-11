@@ -28,7 +28,8 @@ if(isset($_POST['tombol']))
             $penulis = @$_POST["penulis"];
             $produksi = @$_POST["produksi"];
 
-            $query="INSERT INTO film (judul, genre, gambar, durasi, sinopsis, tanggal_rilis, produser, penulis, sutradara, produksi) VALUES('$judul','$genre','$image','$durasi','$sinopsis', '$tanggal_rilis', '$produser', '$penulis', '$sutradara', '$produksi')";
+            $query="INSERT INTO film (judul, genre, gambar, durasi, sinopsis, tanggal_rilis, produser, penulis, sutradara, produksi) 
+                    VALUES('$judul','$genre','$image','$durasi','$sinopsis', '$tanggal_rilis', '$produser', '$penulis', '$sutradara', '$produksi')";
             $simpan= mysqli_query($mysqli, $query);
 
             if($simpan){

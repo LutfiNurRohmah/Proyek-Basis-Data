@@ -11,7 +11,8 @@ $total_kursi= @$_POST["total_kursi"];
 $harga = @$_POST["harga"];
 
 
-$query="INSERT INTO jadwal (id_jadwal, id_film, studio, total_kursi, sisa_kursi, tanggal_tayang, jam_tayang, harga) VALUES(Null, '$id_film', '$studio', '$total_kursi', '$total_kursi', '$tanggal_tayang', '$jam_tayang', '$harga')";
+$query="INSERT INTO jadwal (id_film, studio, total_kursi, sisa_kursi, tanggal_tayang, jam_tayang, harga) 
+        VALUES('$id_film', '$studio', '$total_kursi', '$total_kursi', '$tanggal_tayang', '$jam_tayang', '$harga')";
 $simpan= mysqli_query($mysqli, $query);
 if($simpan){
     header("Location:kelola_jadwal.php");

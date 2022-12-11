@@ -3,8 +3,8 @@ require "konek.php";
 require_once("auth_admin.php");
 
 $id_user = $_GET['IdUser'];
-$sql = "DELETE FROM user WHERE id_user='$id_user'";
-$execute= mysqli_query($mysqli, $sql);
+$query = "DELETE FROM user WHERE id_user='$id_user'";
+$execute= mysqli_query($mysqli, $query);
 
 if($execute){
 	header("Location:kelola_user.php");

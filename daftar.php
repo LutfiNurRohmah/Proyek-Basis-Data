@@ -17,7 +17,8 @@ $cek_email=mysqli_num_rows($execute2);
 if($cek_email){
   echo '<script>alert("Email sudah terdaftar")</script>';
 }else{
-    $query="INSERT INTO user (nama_lengkap, alamat, email, nomor_hp, password) VALUES('$nama','$alamat','$email','$nomorhp','$password')";
+    $query="INSERT INTO user (nama_lengkap, alamat, email, nomor_hp, password) 
+            VALUES('$nama','$alamat','$email','$nomorhp','$password')";
     $simpan= mysqli_query($mysqli, $query);
     if($simpan){
         echo '<script>alert("Data berhasil disimpan")</script>';

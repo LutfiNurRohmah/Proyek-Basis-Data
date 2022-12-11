@@ -5,7 +5,9 @@ $find= mysqli_select_db($mysqli, $database);
 $id_user = $_SESSION["user"]['id_user'];
 $query = "SELECT saldo FROM user WHERE id_user='$id_user'";
 $saldo = mysqli_fetch_assoc(mysqli_query($mysqli, $query));
-$query2="SELECT * FROM pengisian_saldo WHERE id_user='$id_user' ORDER BY waktu_transaksi DESC";
+$query2="SELECT * FROM pengisian_saldo 
+         WHERE id_user='$id_user' 
+         ORDER BY waktu_transaksi DESC";
 $execute2 = mysqli_query($mysqli, $query2);
 
 if(isset($_POST['tombol']))
@@ -23,7 +25,8 @@ if(isset($_POST['tombol']))
             $image   = addslashes(file_get_contents($_FILES['bukti_transaksi']['tmp_name']));
             $jumlah_isi = @$_POST["jumlah_isi"];
 
-            $query="INSERT INTO pengisian_saldo (id_user, jumlah_isi, bukti_transaksi) VALUES('$id_user','$jumlah_isi','$image')";
+            $query="INSERT INTO pengisian_saldo (id_user, jumlah_isi, bukti_transaksi) 
+                    VALUES('$id_user','$jumlah_isi','$image')";
             $simpan= mysqli_query($mysqli, $query);
 
             if($simpan){

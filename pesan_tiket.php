@@ -16,12 +16,16 @@ $result2 = mysqli_fetch_assoc($execute2);
 if(isset($_POST['pesan'])){
   if($result2['sisa_kursi'] != 0){
     if($result['saldo'] >= $result2['harga']){
+      
       $sisa_saldo = $result['saldo'] - $result2['harga'];
       $sisa_kursi = $result2['sisa_kursi'] - 1;
 
-      $update_saldo = "UPDATE user SET saldo='$sisa_saldo' WHERE id_user='$id_user'";
-      $update_kursi = "UPDATE jadwal SET sisa_kursi='$sisa_kursi' WHERE id_jadwal='$id_jadwal'";
-      $tambahtransaksi = "INSERT INTO transaksi_tiket (id_user, id_jadwal) VALUES ('$id_user', '$id_jadwal')";
+      $update_saldo = "UPDATE user SET saldo='$sisa_saldo' 
+                       WHERE id_user='$id_user'";
+      $update_kursi = "UPDATE jadwal SET sisa_kursi='$sisa_kursi' 
+                       WHERE id_jadwal='$id_jadwal'";
+      $tambahtransaksi = "INSERT INTO transaksi_tiket (id_user, id_jadwal) 
+                          VALUES ('$id_user', '$id_jadwal')";
 
       $execute3 = mysqli_query($mysqli, $tambahtransaksi);
       $execute4 = mysqli_query($mysqli, $update_saldo);

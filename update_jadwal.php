@@ -20,7 +20,14 @@ if(isset($_POST['update'])){
     $total_kursi= @$_POST["total_kursi"];
     $harga = @$_POST["harga"];
 	
-	$sql = "UPDATE jadwal SET id_film='$id_film', tanggal_tayang='$tanggal_tayang', jam_tayang='$jam_tayang', studio='$studio', total_kursi='$total_kursi', sisa_kursi='$total_kursi', harga='$harga' WHERE id_jadwal='$id_jadwal'";
+	$sql = "UPDATE jadwal SET id_film='$id_film', 
+                            tanggal_tayang='$tanggal_tayang', 
+                            jam_tayang='$jam_tayang', 
+                            studio='$studio', 
+                            total_kursi='$total_kursi', 
+                            sisa_kursi='$total_kursi', 
+                            harga='$harga'
+          WHERE id_jadwal='$id_jadwal'";
 	$execute = mysqli_query($mysqli, $sql);
 	
 	if($execute){

@@ -18,7 +18,8 @@ if(isset($_POST['tambah'])){
     if($cek_email ){
       echo '<script>alert("Email sudah terdaftar")</script>';
     }else{
-        $query="INSERT INTO admin (nama_admin, email, password) VALUES('$nama_admin','$email','$password')";
+        $query = "INSERT INTO admin (nama_admin, email, password) 
+                  VALUES('$nama_admin','$email','$password')";
         $simpan= mysqli_query($mysqli, $query);
         if($simpan){
             echo '<script>alert("Data berhasil disimpan")</script>';
