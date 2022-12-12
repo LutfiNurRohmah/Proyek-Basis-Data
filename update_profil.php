@@ -22,7 +22,11 @@ if(isset($_POST['update'])){
         if($cek_email > 0){
             echo '<script>alert("Email sudah terdaftar")</script>';
         }else{ 
-            $sql = "UPDATE user SET nama_lengkap='$nama_lengkap', alamat='$alamat', nomor_hp='$nomorhp', email='$email' WHERE id_user='$id_user'";
+            $sql = "UPDATE user SET nama_lengkap='$nama_lengkap', 
+                                    alamat='$alamat', 
+                                    nomor_hp='$nomorhp', 
+                                    email='$email'
+                    WHERE id_user='$id_user'";
             $execute = mysqli_query($mysqli, $sql);
             
             if($execute){

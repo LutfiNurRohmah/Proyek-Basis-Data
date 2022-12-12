@@ -1,14 +1,9 @@
 <?php 
 require "konek.php";
 require_once("auth.php");
-$find= mysqli_select_db($mysqli, $database);
-
-$query="SELECT * FROM film WHERE id_film NOT IN (SELECT id_film FROM jadwal)";
+$id_film=$_GET['IdFilm'];
+$query = "SELECT * FROM film WHERE id_film='$id_film'";
 $execute = mysqli_query($mysqli, $query);
-
-$bulanini = date('m');
-$query2="SELECT * FROM film WHERE id_film IN (SELECT id_film FROM jadwal WHERE MONTH(tanggal_tayang) LIKE '$bulanini')";
-$execute2 = mysqli_query($mysqli, $query2);
 ?>
 
 <!doctype html>
@@ -16,7 +11,7 @@ $execute2 = mysqli_query($mysqli, $query2);
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard User</title>
+    <title>Detail Film</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
   <body>
@@ -72,47 +67,44 @@ $execute2 = mysqli_query($mysqli, $query2);
           </nav>
           <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-              <h3 class="h5">Dashboard - User</h3>
+              <h3 class="h5">Dashboard - User - Detail Film</h3>
             </div>
-            <div class="card" style="margin-top:20px;">
-              <div class="card-body">
-                <h1 class="text-primary" align="center">Welcome to OurCinema</h1>
-              </div>
-            </div>
-            <div class="card" style="margin-top:20px;">
-              <div class="card-body">
-                <h5 class="card-title">Tayang Segera</h5>
-                <div class="container px-4 text-center">
-                  <div class="row gy-5">
-                    <?php while($result = mysqli_fetch_assoc($execute)){ ?>
-                      <div class="col-2">
-                        <div class="p-3">
-                          <a href="detail_film2.php?IdFilm=<?= $result['id_film']?>"><img src="image_film.php?IdFilm=<?php echo $result['id_film']; ?>" class="img-fluid rounded-start" alt="..."></a>
-                          <p class="card-text"><small class="text-muted"><?php echo $result['judul']?></small></p>
-                        </div>
-                      </div>
-                    <?php }?>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card" style="margin-top:20px;">
-              <div class="card-body">
-                <h5 class="card-title">Tayang Bulan Ini</h5>
-                <div class="container px-4 text-center">
-                  <div class="row gy-5">
-                    <?php while($result2 = mysqli_fetch_assoc($execute2)){ ?>
-                      <div class="col-2">
-                        <div class="p-3">
-                          <a href="detail_film2.php?IdFilm=<?= $result2['id_film']?>"><img src="image_film.php?IdFilm=<?php echo $result2['id_film']; ?>" class="img-fluid rounded-start" alt="..."></a>
-                          <p class="card-text"><small class="text-muted"><?php echo $result2['judul']?></small></p>
-                        </div>
-                      </div>
-                    <?php }?>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <?php while($result = mysqli_fetch_assoc($execute)){ ?>
+
+<div class="col-sm-8">
+  <div class="card">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="image_film.php?IdFilm=<?php echo $result['id_film']; ?>" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h3 class="card-title"><?= $result['judul']?></h3>
+          <p class="card-text"><?= $result['sinopsis']?></p>
+          <p class="card-text"><small class="text-muted">Genre : </small><?= $result['genre']?></p>
+          <p class="card-text"><small class="text-muted">Durasi: </small><?= $result['durasi']?></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:20px; margin-bottom:20px;">
+    <div class="card-body">
+      <p class="card-text"><small class="text-muted">Rilis</small></p>
+      <p class="card-text"><?= $result['tanggal_rilis']?></p>
+      <p class="card-text"><small class="text-muted">Produser</small></p>
+      <p class="card-text"><?= $result['produser']?></p>
+      <p class="card-text"><small class="text-muted">Penulis</small></p>
+      <p class="card-text"><?= $result['penulis']?></p>
+      <p class="card-text"><small class="text-muted">Sutradara</small></p>
+      <p class="card-text"><?= $result['sutradara']?></p>
+      <p class="card-text"><small class="text-muted">Produksi</small></p>
+      <p class="card-text"><?= $result['produksi']?></p>   
+    </div>
+  </div>
+        <?php }?>
+            
           </main>
         </div>
     </div>
