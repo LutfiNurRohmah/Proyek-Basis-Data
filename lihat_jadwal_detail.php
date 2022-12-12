@@ -2,8 +2,8 @@
 require_once("auth.php");
 require "konek.php";
 $find= mysqli_select_db($mysqli, $database);
-$id_film=$_GET['IdFilm'];
-$query="SELECT * FROM jadwal INNER JOIN film USING (id_film) WHERE id_film='$id_film'";
+$id_jadwal=$_GET['IdJadwal'];
+$query="SELECT * FROM jadwal INNER JOIN film USING (id_film) WHERE id_jadwal='$id_jadwal'";
 $execute = mysqli_query($mysqli, $query);
 ?>
 

@@ -22,7 +22,7 @@ if(isset($_POST['search'])){
       $query = "SELECT * FROM jadwal INNER JOIN film USING (id_film) 
                 WHERE DAYNAME(tanggal_tayang) LIKE '%$dayList[$day]%' 
                 ORDER BY tanggal_tayang";
-      $execute=mysqli_query($mysqli, query);
+      $execute=mysqli_query($mysqli, $query);
 
     }else{
       $query = "SELECT * FROM jadwal INNER JOIN film USING (id_film) 
@@ -197,7 +197,7 @@ function hari($date){
                       </tr>
                   </table>
                   </div>
-                  <a href="lihat_jadwal_detail.php?IdFilm=<?= $result['id_film']?>"><button type="button" class="btn btn-primary">Lihat Detail</button></a>
+                  <a href="lihat_jadwal_detail.php?IdJadwal=<?= $result['id_jadwal']?>"><button type="button" class="btn btn-primary">Lihat Detail</button></a>
                   <a href="pesan_tiket.php?IdJadwal=<?= $result['id_jadwal']?>""><button type="button" class="btn btn-primary">Pesan</button></a>
               </div>
               </div>
