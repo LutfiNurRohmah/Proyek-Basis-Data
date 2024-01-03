@@ -1,4 +1,4 @@
-# Website OurCinema <img src="https://img.shields.io/badge/Built%20with-Bootstrap-563D7C?style=popout&logo=bootstrap"> <img src="https://img.shields.io/badge/Built%20with-PHP-777BB4?style=popout&logo=php">
+# Web OurCinema <img src="https://img.shields.io/badge/Built%20with-Bootstrap-563D7C?style=popout&logo=bootstrap"> <img src="https://img.shields.io/badge/Built%20with-PHP-777BB4?style=popout&logo=php">
 
 ## Deskripsi
 
