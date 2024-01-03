@@ -6,7 +6,7 @@ $find= mysqli_select_db($mysqli, $database);
 $query="SELECT * FROM film WHERE id_film NOT IN (SELECT id_film FROM jadwal)";
 $execute = mysqli_query($mysqli, $query);
 
-$bulanini = date('m');
+$bulanini = date('n');
 $query2="SELECT * FROM film WHERE id_film IN (SELECT id_film FROM jadwal WHERE MONTH(tanggal_tayang) LIKE '$bulanini')";
 $execute2 = mysqli_query($mysqli, $query2);
 ?>
